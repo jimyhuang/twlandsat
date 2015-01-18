@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install GDAL and ImageMagick
-apt-get install dans-gdal-scripts imagemagick
+apt-get install wget dans-gdal-scripts imagemagick
 
 # Install OTB 3.20
 #

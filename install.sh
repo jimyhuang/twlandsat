@@ -11,7 +11,7 @@ apt-get install dans-gdal-scripts imagemagick
 # http://www.orfeo-toolbox.org/packages/archives/Doc/OTB-FAQ-3.8.pdf
  
 # you needs all theses ...
-apt-get install libfltk1.1 cmake gdal-bin libgdal-dev geotiff-bin  libgeotiff-dev
+apt-get -y install libfltk1.1 cmake gdal-bin libgdal-dev geotiff-bin  libgeotiff-dev
  
 # download package first at http://sourceforge.net/projects/orfeo-toolbox/files/OTB/OTB-3.20/
 cd /usr/local/
@@ -32,4 +32,4 @@ cmake ../OTB-3.20.0
 make
  
 # after hour of compile ...
-# make install
+make install

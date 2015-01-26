@@ -16,7 +16,7 @@ echo "Downloading ${NAME}"
 landsat download ${NAME}
 
 # download completed
-if [ -f ~/landsat/${NAME}.tar.gz ]; then
+if [ -f ~/landsat/zip/${NAME}.tar.bz ]; then
   # update queue list
   echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt
   echo "${NAME}" >> queue-downloaded.txt
@@ -26,7 +26,7 @@ if [ -f ~/landsat/${NAME}.tar.gz ]; then
   curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-downloaded.csv https://www.ethercalc.org/_/${DOWNLOADED}
 
   # image process, pansharping
-  landsat process --pansharpen ~/landsat/${NAME}.tar.gz
+  landsat process --pansharpen ~/landsat/zip/${NAME}.tar.bz
 
   # TODO: tilelize file
   # TODO: upload image which successful processing

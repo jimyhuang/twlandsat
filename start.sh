@@ -12,8 +12,10 @@ curl -s https://www.ethercalc.org/${FINISHED}.csv | tr -d ',' > queue-finished.t
 NAME=`head -n1 queue-pending.txt`
 
 # download landsat
-echo "Downloading ${NAME}"
-landsat download ${NAME}
+if [ !-f ~/landsat/zip/${NAME}.tar.bz ]; then
+  echo "Downloading ${NAME} ..."
+  landsat download ${NAME}
+fi
 
 # download completed
 if [ -f ~/landsat/zip/${NAME}.tar.bz ]; then
@@ -26,12 +28,14 @@ if [ -f ~/landsat/zip/${NAME}.tar.bz ]; then
   curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-downloaded.csv https://www.ethercalc.org/_/${DOWNLOADED}
 
   # image process, pansharping
+  echo "Image processing ${NAME} ..."
   landsat process --pansharpen ~/landsat/zip/${NAME}.tar.bz
 
   # TODO: tilelize file
   # TODO: upload image which successful processing
 
   # after long time process
+  echo "Writing finish record for ${NAME} ..."
   echo "${NAME}" >> queue-finished.txt
   sed 's/$/,,/g' queue-finished.txt > queue-finished.csv
   curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-finished.csv https://www.ethercalc.org/_/${FINISHED}

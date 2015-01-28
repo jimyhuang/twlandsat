@@ -12,7 +12,7 @@ curl -s https://www.ethercalc.org/${FINISHED}.csv | tr -d ',' > queue-finished.t
 NAME=`head -n1 queue-pending.txt`
 
 # download landsat
-if [ !-f ~/landsat/zip/${NAME}.tar.bz ]; then
+if [ ! -f ~/landsat/zip/${NAME}.tar.bz ]; then
   echo "Downloading ${NAME} ..."
   landsat download ${NAME}
 fi

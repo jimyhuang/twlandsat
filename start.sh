@@ -2,6 +2,7 @@
 PENDING=1f8cfkxar1
 DOWNLOADED=wn9wlxessv
 FINISHED=c9kytykh4g
+WORKDIR=`pwd`
 
 # get queue list
 curl -s https://www.ethercalc.org/${PENDING}.csv | tr -d ',' > queue-pending.txt
@@ -36,6 +37,7 @@ fi
 if [ -f ~/landsat/processed/${NAME}/final-pan.TIF ]; then
   cd ~/landsat/processed/${NAME}/
   gdal2tiles.py final-pan.TIF tiles
+  cd $WORKDIR
   # TODO: upload image which successful processing
   echo "Writing finish record for ${NAME} ..."
   echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt

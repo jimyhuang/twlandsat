@@ -34,6 +34,8 @@ fi
 
 # 3. finished processing
 if [ -f ~/landsat/processed/${NAME}/final-pan.TIF ]; then
+  cd ~/landsat/processed/${NAME}/
+  gdal2tiles.py final-pan.TIF tiles
   # TODO: upload image which successful processing
   echo "Writing finish record for ${NAME} ..."
   echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt

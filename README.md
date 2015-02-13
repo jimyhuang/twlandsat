@@ -34,11 +34,11 @@ NDVI - Normalized Difference Vegetation Index ([常態化差值植生指標](htt
 TODO List
 ---------
 
-[ ] NDVI Diff
-[ ] Better map viewer (maybe Leaflet)
-[ ] Landsat 5 圖資處理（可回溯資料至2000年）
-[ ] ...
-[ ] ...
+  - [ ] NDVI Diff
+  - [ ] Better map viewer (maybe Leaflet)
+  - [ ] Landsat 5 圖資處理（可回溯資料至2000年）
+  - [ ] ...
+  - [ ] ...
 
 
 **分散式算圖**

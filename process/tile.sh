@@ -1,3 +1,10 @@
+#!/bin/bash
+
+##################################
+# Create tiles using imagemagick #
+# Use gdal2tiles instead         #
+##################################
+
 if [ ! -f test.png ]; then
   convert -monitor c_RGB_adj.tif test.png
 fi

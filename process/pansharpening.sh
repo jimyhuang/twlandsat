@@ -1,4 +1,9 @@
 #!/bin/bash
+
+############################
+# Use OTB to pansharpening #
+############################
+
 if [ "$#" -ne 1 ]
 then
   echo "Usage: $0 LC81180442014356LGN00"

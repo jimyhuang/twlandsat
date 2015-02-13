@@ -1,5 +1,9 @@
 #!/bin/bash
 
+##############################################
+# Install script for debian 7 to support OTB #
+##############################################
+
 # Install GDAL and ImageMagick
 apt-get install dans-gdal-scripts imagemagick
 

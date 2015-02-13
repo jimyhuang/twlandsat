@@ -1,7 +1,7 @@
 Landsat Taiwan Public Image
 ============================
 
-The goal of this project is generate high quality satellite map tiles using Landsat, and pubish these images to everyone using popular map browsing tool. This's a sort of call for government open data project. For now, daily satellite image owned by Taiwan government doesn't open for everyone.
+The goal of this project is generate high quality satellite map tiles using Landsat from USGS, and pubish these images to everyone using popular map browsing tool. This's a sort of call for government open data project. For now, daily satellite image owned by Taiwan government doesn't open for everyone.
 
 Install and Use
 ---------------
@@ -21,10 +21,13 @@ After each run, this docker container will processing image into host directory,
   ```
   git pull https://github.com/jimyhuang/twlandsat.git
   ./docker-run.sh
+  docker attach twlandsat
+  # after enter container
+  ./start.sh
   ```
 
 Hardware Requirement
 --------------------
-RAM: 8GB
-Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image
-CPU: Multi-core will save you a lot of time.
+- RAM: 8GB
+- Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image
+- CPU: Multi-core will save you a lot of time.

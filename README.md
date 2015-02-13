@@ -10,22 +10,21 @@ For now, we use docker for build image processing server.
 1. Prepare your docker host enviromnet.
 
 2. Pull prepared image from [Docker hub](https://registry.hub.docker.com/u/jimyhuang/twlandsat/)
-```
-Docker pull jimyhuang/twlandsat
-```
-
+  ```
+  Docker pull jimyhuang/twlandsat
+  ```
 3. Run Docker and start processing
 
-*Attention* this will exhause all of your cpu, memory, even if disk space. Please check *hardware requirement* below.
+  > *Attention* this will exhause all of your cpu, memory, even if disk space. Please check *hardware requirement* below.
 After each run, this docker container will processing image into host directory, then upload processed image to central server.
 
-```
-git pull https://github.com/jimyhuang/twlandsat.git
-./docker-run.sh
-```
+  ```
+  git pull https://github.com/jimyhuang/twlandsat.git
+  ./docker-run.sh
+  ```
 
-Hardware requirement
+Hardware Requirement
 ============================
 RAM: 8GB
-Harddisk: 1.4G per image
-CPU: 4 Core
+Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image
+CPU: Multi-core will save you a lot of time.

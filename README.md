@@ -1,7 +1,9 @@
 Landsat Taiwan Public Image
 ============================
-
+  > switch to [中文說明](https://github.com/jimyhuang/twlandsat/blob/master/README.zh_TW.md)
+  
 The goal of this project is generate high quality satellite map tiles using Landsat from USGS, and pubish these images to everyone using popular map browsing tool. This's a sort of call for government open data project. For now, daily satellite image owned by Taiwan government doesn't open for everyone.
+
 
 Install and Use
 ---------------

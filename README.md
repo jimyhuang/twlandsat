@@ -25,7 +25,7 @@ NDVI - Normalized Difference Vegetation Index ([常態化差值植生指標](htt
   
   <img src="https://farm9.staticflickr.com/8652/16334142509_f5989b377d_o.png" width="300px" alt="NDVI-diff-geojson" />
 
-困境與現況
+困境
 ----------
   - 目前應用 landsat-util 來進行取圖、全像銳化（Pansharpening），然而得算很久，一張圖算完含上傳要算1-2小時
   - NDVI 的 geojson 差異比較，等圖都取完後再比較才準
@@ -38,12 +38,13 @@ TODO List
   - [ ] Better map viewer (maybe Leaflet)
   - [ ] Landsat 5 圖資處理（可回溯資料至2000年）
   - [ ] ...
-  - [ ] ...
+  - [ ] ... 
+  - 請到這裡[一起討論](https://g0v.hackpad.com/oZjrZwHKc8r)新功能
 
 
-**分散式算圖**
-==============
-只要你有 Docker 環境，就可以協力算圖
+**你也可以參與算圖的行列**
+==========================
+只要你有 Docker 環境，就可以協力算圖！一起算圖現在就來[簽名一下](https://g0v.hackpad.com/oZjrZwHKc8r)...
 
 安裝與使用
 ----------

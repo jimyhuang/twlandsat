@@ -27,7 +27,7 @@ if [ -f ~/landsat/zip/${NAME}.tar.bz ] && [ ! -f ~/landsat/processed/${NAME}/fin
 
   # image process, pansharping
   echo "Image processing ${NAME} ..."
-  landsat process --pansharpen ~/landsat/zip/${NAME}.tar.bz
+  landsat process --pansharpen --ndvi ~/landsat/zip/${NAME}.tar.bz
 
   # TODO: NDVI version of pan
   # TODO: tilelize file
@@ -36,7 +36,11 @@ fi
 # 3. finished processing
 if [ -f ~/landsat/processed/${NAME}/final-pan.TIF ]; then
   cd ~/landsat/processed/${NAME}/
-  gdal2tiles.py final-pan.TIF tiles
+  gdalwarp -srcnodata 0 -dstnodata 0 final-pan.TIF final-pan.tif
+  gdalwarp -srcnodata 0 -dstnodata 0 final.TIF final.tif
+  gdalwarp -srcnodata 0 -dstnodata 0 final-ndvi.TIF final-ndvi.tif
+  gdal2tiles.py final-pan.tif tiles
+  rm -f *.TIF
   cd $WORKDIR
   # TODO: upload image which successful processing
   echo "Writing finish record for ${NAME} ..."

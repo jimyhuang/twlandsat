@@ -24,13 +24,42 @@ NDVI - Normalized Difference Vegetation Index ([常態化差值植生指標](htt
 
 困境與現況
 ----------
+  - 目前應用 landsat-util 來進行取圖、全像銳化（Pansharpening），然而得算很久，一張圖算完含上傳要算1-2小時
+  - NDVI 的 geojson 差異比較，等圖都取完後再比較才準
+  - 空間佔用很大，一張圖壓縮後約需要 2gb 空間儲存
 
-**如何協力**
-============
+**分散式算圖**
+==============
+只要你有 Docker 環境，就可以協力算圖
 
-安裝
-----
+安裝與使用
+----------
 
+1. Prepare your docker host enviromnet.
+
+2. Pull prepared image from [Docker hub](https://registry.hub.docker.com/u/jimyhuang/twlandsat/)
+  ```
+  Docker pull jimyhuang/twlandsat
+  ```
+
+3. Run Docker and start processing
+
+  > *Attention* this will exhause all of your cpu, memory, even if disk space. Please check *hardware requirement* below.
+After each run, this docker container will processing image into host directory, then upload processed image to central server.
+
+  ```
+  git pull https://github.com/jimyhuang/twlandsat.git
+  ./docker-run.sh
+  docker attach twlandsat
+  # after enter container
+  ./start.sh
+  ```
+
+硬體需求
+--------------------
+- RAM: 8GB
+- Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image
+- CPU: Multi-core will save you a lot of time.
 
 資源
 ====

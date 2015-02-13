@@ -36,13 +36,21 @@ fi
 # 3. finished processing
 if [ -f ~/landsat/processed/${NAME}/final-pan.TIF ]; then
   cd ~/landsat/processed/${NAME}/
+
+  # manupulating tiles
+  convert final-ndvi.TIF final-ndvi.png
   gdalwarp -srcnodata 0 -dstnodata 0 final-pan.TIF final-pan.tif
   gdalwarp -srcnodata 0 -dstnodata 0 final.TIF final.tif
-  gdalwarp -srcnodata 0 -dstnodata 0 final-ndvi.TIF final-ndvi.tif
   gdal2tiles.py final-pan.tif tiles
+  bzip2 --best ./*.tif
+
+  # cleanup
   rm -f *.TIF
+  rsync -rtv ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+
   cd $WORKDIR
   # TODO: upload image which successful processing
+  
   echo "Writing finish record for ${NAME} ..."
   echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt
   sed 's/$/,,/g' queue-pending.txt > queue-pending.csv

@@ -27,7 +27,7 @@ if [ -f ~/landsat/zip/${NAME}.tar.bz ] && [ ! -f ~/landsat/processed/${NAME}/fin
 
   # image process, pansharping
   echo "Image processing ${NAME} ..."
-  landsat process --pansharpen --ndvi ~/landsat/zip/${NAME}.tar.bz
+  landsat process --pansharpen --ndvi --noclouds ~/landsat/zip/${NAME}.tar.bz
 
   # TODO: NDVI version of pan
   # TODO: tilelize file

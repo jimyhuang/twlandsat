@@ -128,3 +128,11 @@ Others
   - Landsat wrs converter: http://blog.rtwilson.com/converting-latitudelongitude-co-ordinates-to-landsat-wrs-2-pathsrows/comment-page-1/
   - 衛星偵測水污染方法(可惜不是 Landsat) http://www.csprs.org.tw/Temp/200912-14-4-287-302.pdf
 
+Used Repositories
+-----------------
+  - https://github.com/jimyhuang/twlandsat-docker-util
+  - https://github.com/jimyhuang/twlandsat-docker
+  - https://github.com/jimyhuang/landsat-util
+  - https://github.com/jimyhuang/indicar-tools
+  - https://registry.hub.docker.com/u/jimyhuang/twlandsat
+  - https://registry.hub.docker.com/u/jimyhuang/twlandsat-util/

@@ -35,12 +35,6 @@
 
 TODO List
 ---------
-
-  - [x] NDVI Diff
-  - [x] Better map viewer (maybe Leaflet)
-  - [ ] Landsat 5 圖資處理（可回溯資料至2000年）
-  - [ ] ...
-  - [ ] ... 
   - 請到這裡[一起討論](https://g0v.hackpad.com/oZjrZwHKc8r)新功能
 
 

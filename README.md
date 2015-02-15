@@ -10,17 +10,18 @@
 
 現況展示
 --------
-[Online map viewer](http://twlandsat.jimmyhub.net)
-  2014-12-31 青境農場(Pansharpening)
+1. [線上比較兩個時間點地圖](twlandsat.jimmyhub.net/?landsat=LC81180442014308LGN00|LC81180442015023LGN00)
+
+2.  2014-12-31 青境農場(Pansharpening)
   
   <img src="https://farm9.staticflickr.com/8659/16335256707_bb9aa4f666_o.png" width="300" alt="RGB">
 
-NDVI - Normalized Difference Vegetation Index ([常態化差值植生指標](http://zh.wikipedia.org/wiki/%E5%B8%B8%E6%85%8B%E5%8C%96%E5%B7%AE%E5%80%BC%E6%A4%8D%E7%94%9F%E6%8C%87%E6%A8%99))
+3. NDVI - Normalized Difference Vegetation Index ([常態化差值植生指標](http://zh.wikipedia.org/wiki/%E5%B8%B8%E6%85%8B%E5%8C%96%E5%B7%AE%E5%80%BC%E6%A4%8D%E7%94%9F%E6%8C%87%E6%A8%99))
   應用近紅外光反射取得植生的生長狀態
   
   <img src="https://farm9.staticflickr.com/8620/16332528928_1221c120d0_o.png" width="300px" alt="Taipei-NDVI" />
 
-植生變遷(TODO)
+4. 植生變遷(TODO)
   運用NDVI的差異，了解過去16天內植物的生長差異，並產出 geojson 供線上檢視
   
   <img src="https://farm9.staticflickr.com/8652/16334142509_f5989b377d_o.png" width="300px" alt="NDVI-diff-geojson" />

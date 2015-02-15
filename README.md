@@ -126,9 +126,10 @@ Others
 
 Used Repositories
 -----------------
-  - https://github.com/jimyhuang/twlandsat-docker-util
-  - https://github.com/jimyhuang/twlandsat-docker
-  - https://github.com/jimyhuang/landsat-util
-  - https://github.com/jimyhuang/indicar-tools
-  - https://registry.hub.docker.com/u/jimyhuang/twlandsat
-  - https://registry.hub.docker.com/u/jimyhuang/twlandsat-util/
+  - https://github.com/jimyhuang/twlandsat-browse - Website browser
+  - https://github.com/jimyhuang/twlandsat-docker-util - Dockerfile for landsat
+  - https://github.com/jimyhuang/twlandsat-docker - Dockerfile image for twlandsat
+  - https://github.com/jimyhuang/landsat-util - forked from developmentseed
+  - https://github.com/jimyhuang/indicar-tools - forked from ibamacsr
+  - https://registry.hub.docker.com/u/jimyhuang/twlandsat - Docker image
+  - https://registry.hub.docker.com/u/jimyhuang/twlandsat-util/ - Docker base image

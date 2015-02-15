@@ -10,7 +10,8 @@
 
 現況展示
 --------
-1. [線上比較兩個時間點地圖](http://twlandsat.jimmyhub.net/?landsat=LC81180442014308LGN00|LC81180442015023LGN00)
+1. [線上地圖](http://twlandsat.jimmyhub.net/?landsat=LC81180442014308LGN00|LC81180442015023LGN00)
+  - 線上比較 2014-11-04 / 2015-01-23 兩個時間點的西部穀倉，可以輕易看到收割前後的種植覆蓋
 
 2.  2014-12-31 青境農場(Pansharpening)
   
@@ -35,8 +36,8 @@
 TODO List
 ---------
 
-  - [ ] NDVI Diff
-  - [ ] Better map viewer (maybe Leaflet)
+  - [x] NDVI Diff
+  - [x] Better map viewer (maybe Leaflet)
   - [ ] Landsat 5 圖資處理（可回溯資料至2000年）
   - [ ] ...
   - [ ] ... 

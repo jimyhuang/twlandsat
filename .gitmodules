@@ -1,0 +1,9 @@
+[submodule "browse"]
+	path = browse
+	url = https://github.com/jimyhuang/twlandsat-browse.git
+[submodule "docker-util"]
+	path = docker-util
+	url = https://github.com/jimyhuang/twlandsat-docker-util.git
+[submodule "docker"]
+	path = docker
+	url = https://github.com/jimyhuang/twlandsat-docker.git

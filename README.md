@@ -6,6 +6,7 @@
 
   - [討論區](https://www.facebook.com/groups/610479852418250/)
   - [網站](http://twlandsat.jimmyhub.net/#118044,LC81180442014276LGN00,LC81180442015023LGN00,12,23.428283881382345,120.32964706420898)
+  - [Gallery](https://www.flickr.com/search/?q=twlandsat&m=tags) (Flickr Tag twlandsat)
 
 衛星圖資與運算方式
 ------------------

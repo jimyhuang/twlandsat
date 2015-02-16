@@ -10,7 +10,7 @@
 
 現況展示
 --------
-1. [線上地圖](http://twlandsat.jimmyhub.net/?landsat=LC81180442014308LGN00|LC81180442015023LGN00)
+1. [線上地圖](http://twlandsat.jimmyhub.net/#118044,LC81180442014276LGN00,LC81180442015023LGN00,12,23.428283881382345,120.32964706420898)
   - 線上比較 2014-11-04 / 2015-01-23 兩個時間點的西部穀倉，可以輕易看到收割前後的種植覆蓋
 
 2.  2014-12-31 青境農場(Pansharpening)
@@ -126,9 +126,10 @@ Others
 
 Used Repositories
 -----------------
-  - https://github.com/jimyhuang/twlandsat-docker-util
-  - https://github.com/jimyhuang/twlandsat-docker
-  - https://github.com/jimyhuang/landsat-util
-  - https://github.com/jimyhuang/indicar-tools
-  - https://registry.hub.docker.com/u/jimyhuang/twlandsat
-  - https://registry.hub.docker.com/u/jimyhuang/twlandsat-util/
+  - https://github.com/jimyhuang/twlandsat-browse - Website browser
+  - https://github.com/jimyhuang/twlandsat-docker-util - Dockerfile for landsat
+  - https://github.com/jimyhuang/twlandsat-docker - Dockerfile image for twlandsat
+  - https://github.com/jimyhuang/landsat-util - forked from developmentseed
+  - https://github.com/jimyhuang/indicar-tools - forked from ibamacsr
+  - https://registry.hub.docker.com/u/jimyhuang/twlandsat - Docker image
+  - https://registry.hub.docker.com/u/jimyhuang/twlandsat-util/ - Docker base image

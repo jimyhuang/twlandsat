@@ -44,25 +44,47 @@ TODO List
 
 安裝與使用
 ----------
+### __Install__
 
 1. Prepare your docker host enviromnet.
+  > read https://docs.docker.com/userguide/
 
 2. Pull prepared image from [Docker hub](https://registry.hub.docker.com/u/jimyhuang/twlandsat/)
+  > just using this shell to speed up things.
   ```
-  Docker pull jimyhuang/twlandsat
+  git pull https://github.com/jimyhuang/twlandsat.git
+  ./docker-install.sh
   ```
 
 3. Run Docker and start processing
-
   > *Attention* this will exhause all of your cpu, memory, even if disk space. Please check *hardware requirement* below.
 After each run, this docker container will processing image into host directory, then upload processed image to central server.
 
   ```
-  git pull https://github.com/jimyhuang/twlandsat.git
-  ./docker-run.sh
-  docker attach twlandsat
+  ./docker-start.sh
   # after enter container
   ./start.sh
+  ```
+  > You can also restart docker container using this
+  
+  ```
+  ./docker-restart.sh
+    # after enter container
+  ./start.sh
+  ```
+
+### __Uninstall__
+  > Uninstall will purge docker image, and /home/landsat directory.
+  
+  ```
+  ./docker-uninstall.sh
+  ```
+
+### __Update__
+  > Just pull image again
+  
+  ```
+  ./docker-install.sh
   ```
 
 硬體需求

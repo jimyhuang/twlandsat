@@ -1,6 +1,6 @@
 **賽豬公上太空計畫**
 ====================
-  > switch to [English Readme](https://github.com/jimyhuang/twlandsat/blob/master/README.zh_TW.md)
+  > switch to [English Readme](https://github.com/jimyhuang/twlandsat/blob/master/README.en.md)
 
 別人已經上太空，我們還在賽豬公，也算是對於台灣自有衛星圖 Open Data 的現況描述。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
 

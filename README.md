@@ -4,6 +4,9 @@
 
 別人已經上太空，我們還在賽豬公，也算是對於台灣自有衛星圖 Open Data 的現況描述。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
 
+  - [討論區](https://www.facebook.com/groups/610479852418250/)
+  - [網站](http://twlandsat.jimmyhub.net/#118044,LC81180442014276LGN00,LC81180442015023LGN00,12,23.428283881382345,120.32964706420898)
+
 衛星圖資與運算方式
 ------------------
 圖資來自美國 [USGS](http://earthexplorer.usgs.gov) 供應的免費、定期的科研 Landsat 衛星空照圖，取出 Landsat 衛星經過台灣4塊經緯度，進行全色態銳化(Pansharpening)以提高解析度，並裁切成可供 Web 地圖瀏覽程式運用的 Tile。
@@ -32,10 +35,6 @@
   - 目前應用 landsat-util 來進行取圖、全像銳化（Pansharpening），然而得算很久，一張圖算完含上傳要算1-2小時
   - NDVI 的 geojson 差異比較，等圖都取完後再比較才準
   - 空間佔用很大，一張圖壓縮後約需要 2gb 空間儲存
-
-TODO List
----------
-  - 請到這裡[一起討論](https://g0v.hackpad.com/oZjrZwHKc8r)新功能
 
 
 **你也可以參與算圖的行列**

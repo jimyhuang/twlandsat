@@ -1,4 +1,9 @@
 #! /bin/bash
+
+# this will limit imagemagick doesn't eat more than 4GB
+export MAGICK_MEMORY_LIMIT=2048
+export MAGICK_MAP_LIMIT=2048
+
 PENDING=1f8cfkxar1
 DOWNLOADED=wn9wlxessv
 FINISHED=c9kytykh4g

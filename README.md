@@ -93,6 +93,35 @@ After each run, this docker container will processing image into host directory,
 - Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image
 - CPU: Multi-core will save you a lot of time.
 
+MAC安裝與使用
+----------
+1. Mac跑docker, 要先裝boot2docker
+
+  ```
+  brew install boot2docker
+  ```
+2. init boot2docker
+
+  ```
+  boot2docker init
+  ```
+3. 如果要提升ram, 用下面的指令調整
+
+  ```
+  VBoxManage modifyvm boot2docker-vm --memory xxx(MB)
+  ```
+4. start boot2docker
+
+  ```
+  boot2docker up
+  ```
+5. 接下來docker的指令一樣
+6. 結束以後, 記得把boo2docker停下來
+
+  ```
+  boot2docker stop
+  boot2docker delete
+  ```
 
 資源
 ====

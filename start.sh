@@ -54,8 +54,8 @@ do
       cd $FINAL
       gdal2tiles.py final-rgb.TIF tiles-rgb
       bzip2 --best final-rgb.TIF
+      mv -f tiles-rgb ~/landsat/processed/${NAME}/ 
       mv -f final-rgb.TIF.bz2 ~/landsat/processed/${NAME}/
-      mv -f $FINAL/tiles-rgb ~/landsat/processed/${NAME}/ 
     fi
   fi
 
@@ -68,7 +68,7 @@ do
       tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${TMP}
     fi
 
-    # process rgb
+    # process swirnir
     $WORKDIR/process/l8-pan.sh ${TMP} 7,5,3 final-swirnir-pan.TIF
     $WORKDIR/process/l8-combine-swirnir.sh ${TMP}/final/final-swirnir-pan.TIF ${TMP}/final/final-swirnir.TIF
 
@@ -76,7 +76,7 @@ do
       cd $FINAL
       gdal2tiles.py final-swirnir.TIF tiles-swirnir
       bzip2 --best final-swirnir.TIF
-      mv -f $FINAL/tiles-swirnir ~/landsat/processed/${NAME}/ 
+      mv -f tiles-swirnir ~/landsat/processed/${NAME}/ 
       mv -f final-swirnir.TIF.bz2 ~/landsat/processed/${NAME}/
     fi
   fi

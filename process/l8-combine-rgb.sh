@@ -17,7 +17,7 @@ mkdir -p $TMP
 cp $1 $TMP/rgb-pan.tif
 
 # processing image
-convert -monitor -channel B -gamma 0.98 -channel R -gamma 1.03 -sigmoidal-contrast 30x15% $TMP/rgb-pan.tif $TMP/rgb-pan-light.tif
+convert -monitor -channel B -gamma 0.98 -channel R -gamma 1.03 -channel RGB -sigmoidal-contrast 30x15% $TMP/rgb-pan.tif $TMP/rgb-pan-light.tif
 cp -f $TMP/rgb-pan-light.tif $FINAL
 
 # append geotiff into image

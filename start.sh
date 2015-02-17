@@ -65,13 +65,13 @@ do
   fi
 
   # 4. finish and upload
-  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ]; then
+  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ] && [ -f $FINAL/final-rgb.TIF.bz]; then
     mv -f $FINAL/*.bz ~/landsat/processed/${NAME}/
     mv -f $FINAL/tile-* ~/landsat/processed/${NAME}/ 
 
     # upload
     rsync -rtv --bwlimit=1024 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
-    rm -Rf ${TMP}
+    # rm -Rf ${TMP}
 
     cd $WORKDIR
     echo "Writing finish record for ${NAME} ..."

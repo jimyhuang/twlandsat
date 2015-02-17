@@ -9,8 +9,8 @@ else
 fi
  
 # this will limit imagemagick doesn't eat more than 4GB
-export MAGICK_MEMORY_LIMIT=1024
-export MAGICK_MAP_LIMIT=1024
+export MAGICK_MEMORY_LIMIT=512
+export MAGICK_MAP_LIMIT=512
 
 PENDING=1f8cfkxar1
 DOWNLOADED=wn9wlxessv

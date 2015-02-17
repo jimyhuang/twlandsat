@@ -38,7 +38,7 @@ do
   TMP=/tmp/${NAME}
   FINAL=${TMP}/final
   mkdir -p $FINAL
-  if [ ! -f ${TMP}/final/final-rgb.TIF.bz ]; then
+  if [ ! -f ${TMP}/final/final-rgb.TIF.bz2 ]; then
     echo "Processing ${NAME} to RGB..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
       echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
@@ -57,7 +57,7 @@ do
   fi
 
   # 3. Generate SWIR-NIR false color 
-  if [ ! -f ${TMP}/final/final-swirnir.TIF.bz ]; then
+  if [ ! -f ${TMP}/final/final-swirnir.TIF.bz2 ]; then
     # image process
     echo "Processing ${NAME} to SWIR-NIR false color..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then

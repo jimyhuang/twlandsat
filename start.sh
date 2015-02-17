@@ -37,10 +37,8 @@ do
   # 2. download completed, processing image bands, pansharp
   TMP=/tmp/${NAME}
   FINAL=${TMP}/final
-  if [ ! -f ${TMP}/final/final-rgb.TIF ]; then
-    mkdir -p $FINAL
-
-    # image process
+  mkdir -p $FINAL
+  if [ ! -f ${TMP}/final/final-rgb.TIF.bz ]; then
     echo "Processing ${NAME} to RGB..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
       echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
@@ -50,29 +48,44 @@ do
     # process rgb
     $WORKDIR/process/l8-pan.sh ${TMP} 4,3,2 final-rgb-pan.TIF
     $WORKDIR/process/l8-combine-rgb.sh ${TMP}/final/final-rgb-pan.TIF ${TMP}/final/final-rgb.TIF
+
+    if [ -f $FINAL/final-rgb.TIF ]; then
+      cd $FINAL
+      gdal2tiles.py final-rgb.TIF tiles-rgb
+      bzip2 --best final-rgb.TIF
+    fi
   fi
 
-  # 3. Generate tiles
-  if [ -f $FINAL/final-rgb.TIF ]; then
-    cd $FINAL
-    gdal2tiles.py final-rgb.TIF tiles-rgb
-    bzip2 --best final-rgb.TIF
-  fi
-  if [ -f $FINAL/final-swirnir.TIF]; then
-    cd $FINAL
-    gdal2tiles.py final-swirnir.TIF tiles-swirnir
-    bzip2 --best final-swirnir.TIF
+  # 3. Generate SWIR-NIR false color 
+  if [ ! -f ${TMP}/final/final-swirnir.TIF.bz ]; then
+    # image process
+    echo "Processing ${NAME} to SWIR-NIR false color..."
+    if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
+      echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
+      tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${TMP}
+    fi
+
+    # process rgb
+    $WORKDIR/process/l8-pan.sh ${TMP} 7,5,3 final-swirnir-pan.TIF
+    $WORKDIR/process/l8-combine-swirnir.sh ${TMP}/final/final-swirnir-pan.TIF ${TMP}/final/final-swirnir.TIF
+
+    if [ -f $FINAL/final-swirnir.TIF ]; then
+      cd $FINAL
+      gdal2tiles.py final-swirnir.TIF tiles-swirnir
+      bzip2 --best final-swirnir.TIF
+    fi
   fi
 
   # 4. finish and upload
-  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ] && [ -f $FINAL/final-rgb.TIF.bz]; then
+  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ] && [ -f $FINAL/final-rgb.TIF.bz ]; then
     mv -f $FINAL/*.bz ~/landsat/processed/${NAME}/
     mv -f $FINAL/tile-* ~/landsat/processed/${NAME}/ 
 
     # upload
-    rsync -rtv --bwlimit=1024 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
-    # rm -Rf ${TMP}
+    rsync -rtv --bwlimit=512 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    rm -Rf ${TMP}
 
+    # update queue
     cd $WORKDIR
     echo "Writing finish record for ${NAME} ..."
     echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt

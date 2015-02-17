@@ -43,8 +43,8 @@ if [ -f $DIR/${LANDSAT}_B8.TIF ]; then
   otbcli_BundleToPerfectSensor -ram 1024 -inp ${DIR}/${LANDSAT}_B8.TIF -inxs ${VRT} -out $TMP/pan.tif uint16
 
   echo "Pan 3. Generate geoinfo for later usage"
-  listgeo -tfw $DIR/${LANDSAT}_B8.TIF
-  mv $DIR/${LANDSAT}_B8.tfw $TMP/${NAME}.tfw
+  gdalwarp -t_srs EPSG:3857  $DIR/${LANDSAT}_B8.TIF $DIR/warp_B8.TIF
+  listgeo -tfw $DIR/warp_B8.TIF
 
   echo "Pan 4. Remove black border of image and scale"
   gdal_translate -ot Byte -scale 0 65535 0 255 -a_nodata "0 0 0" $TMP/pan.tif $TMP/pan-scaled.tif
@@ -52,7 +52,7 @@ if [ -f $DIR/${LANDSAT}_B8.TIF ]; then
 
   echo "Pan 5. Move processed file to final path, clean up"
   mv -f $TMP/${FILENAME} $FINAL/
-  mv -f $TMP/${NAME}.tfw $FINAL/
+  cp -f $DIR/warp_B8.tfw $FINAL/
 
   if [ -f $FINAL/${FILENAME} ]; then
     rm -Rf $TMP

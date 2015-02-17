@@ -21,7 +21,8 @@ convert -monitor -channel B -gamma 0.98 -channel R -gamma 1.03 -channel RGB -sig
 cp -f $TMP/rgb-pan-light.tif $FINAL
 
 # append geotiff into image
-if [ -f $DIR/${NAME}.tfw ]; then
+if [ -f $DIR/warp_B8.tfw ]; then
+  mv $DIR/warp_B8.tfw $DIR/${NAME}.tfw
   gdal_edit.py -a_srs EPSG:3857 $FINAL
 fi
 

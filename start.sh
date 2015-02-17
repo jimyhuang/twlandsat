@@ -77,7 +77,7 @@ do
   fi
 
   # 4. finish and upload
-  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ] && [ -f $FINAL/final-rgb.TIF.bz ]; then
+  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz2 ] && [ -f $FINAL/final-rgb.TIF.bz2 ]; then
     mv -f $FINAL/*.bz ~/landsat/processed/${NAME}/
     mv -f $FINAL/tile-* ~/landsat/processed/${NAME}/ 
 

@@ -48,7 +48,7 @@ if [ -f $DIR/${LANDSAT}_B8.TIF ]; then
 
   echo "Pan 4. Remove black border of image and scale"
   gdal_translate -ot Byte -scale 0 65535 0 255 -a_nodata "0 0 0" $TMP/pan.tif $TMP/pan-scaled.tif
-  gdalwarp -r cubic -wm 1024 -multi -srcnodata "0 0 0" -dstnodata "0 0 0" -dstalpha -wo OPTIMIZE_SIZE=TRUE -wo UNIFIED_SRC_NODATA=YES -t_srs EPSG:3857 -co TILED=YES -co COMPRESS=LZW $TMP/pan-scaled.tif $TMP/${FILENAME}
+  gdalwarp -r cubic -wm 1024 -multi -srcnodata "0 0 0" -dstnodata "0 0 0" -dstalpha -wo OPTIMIZE_SIZE=TRUE -wo UNIFIED_SRC_NODATA=YES -t_srs EPSG:3857 $TMP/pan-scaled.tif $TMP/${FILENAME}
 
   echo "Pan 5. Move processed file to final path, clean up"
   mv -f $TMP/${FILENAME} $FINAL/

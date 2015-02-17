@@ -84,7 +84,7 @@ do
   # 4. finish and upload
   if [ -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz2 ]; then
     # upload
-    rsync -rtv --bwlimit=512 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    rsync -rtv --progress --bwlimit=2000 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
 
     # update queue
     cd $WORKDIR

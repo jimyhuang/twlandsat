@@ -38,6 +38,7 @@ do
   TMP=/tmp/${NAME}
   FINAL=${TMP}/final
   mkdir -p $FINAL
+  mkdir -p ~/landsat/processed/${NAME}
   if [ ! -f ${TMP}/final/final-rgb.TIF.bz2 ]; then
     echo "Processing ${NAME} to RGB..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then

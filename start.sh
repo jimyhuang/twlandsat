@@ -53,6 +53,8 @@ do
       cd $FINAL
       gdal2tiles.py final-rgb.TIF tiles-rgb
       bzip2 --best final-rgb.TIF
+      mv -f final-rgb.TIF.bz2 ~/landsat/processed/${NAME}/
+      mv -f $FINAL/tiles-rgb ~/landsat/processed/${NAME}/ 
     fi
   fi
 
@@ -73,17 +75,15 @@ do
       cd $FINAL
       gdal2tiles.py final-swirnir.TIF tiles-swirnir
       bzip2 --best final-swirnir.TIF
+      mv -f $FINAL/tiles-swirnir ~/landsat/processed/${NAME}/ 
+      mv -f final-swirnir.TIF.bz2 ~/landsat/processed/${NAME}/
     fi
   fi
 
   # 4. finish and upload
-  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz2 ] && [ -f $FINAL/final-rgb.TIF.bz2 ]; then
-    mv -f $FINAL/*.bz ~/landsat/processed/${NAME}/
-    mv -f $FINAL/tile-* ~/landsat/processed/${NAME}/ 
-
+  if [ -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz2 ]; then
     # upload
     rsync -rtv --bwlimit=512 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
-    rm -Rf ${TMP}
 
     # update queue
     cd $WORKDIR
@@ -94,5 +94,10 @@ do
     echo "${NAME}" >> queue-finished.txt
     sed 's/$/,,/g' queue-finished.txt > queue-finished.csv
     curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-finished.csv https://www.ethercalc.org/_/${FINISHED}
+
+    # Clean uploaded file
+    echo "Clean up tmp and uploaded files"
+    # rm -Rf ~/landsat/processed/${NAME}/
+    rm -Rf ${TMP}
   fi
 done

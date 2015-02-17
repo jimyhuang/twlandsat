@@ -17,7 +17,7 @@ mkdir -p $TMP
 cp $1 $TMP/swirnir-pan.tif
 
 # processing image
-convert -monitor -channel RGB -sigmoidal-contrast 5x15% -channel R -brightness-contrast 30x80% -channel G -brightness-contrast 5x30% -channel B -brightness-contrast 35x30% $TMP/swirnir-pan.tif $TMP/swirnir-pan-light.tif
+convert -monitor -channel RGB -sigmoidal-contrast 5x15% -channel R -brightness-contrast 30x70% -channel G -brightness-contrast 10x30% -channel B -brightness-contrast 25x30% $TMP/swirnir-pan.tif $TMP/swirnir-pan-light.tif
 cp -f $TMP/swirnir-pan-light.tif $FINAL
 
 # append geotiff into image

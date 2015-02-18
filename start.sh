@@ -82,7 +82,8 @@ do
   # 4. finish and upload
   if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF ]; then
     # upload
-    rsync -rtv --progress ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    echo "Uploading files... needs at least 30 minutes in 256Kb"
+    rsync -rtv ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
 
     # update queue
     cd $WORKDIR
@@ -96,7 +97,9 @@ do
 
     # Clean uploaded file
     echo "Clean up tmp and uploaded files"
-    # rm -Rf ~/landsat/processed/${NAME}/
+    rm -Rf ~/landsat/processed/${NAME}/tiles-rgb
+    rm -Rf ~/landsat/processed/${NAME}/tiles-swirnir
+    rm -f ~/landsat/zip/${NAME}.tar.bz
     rm -Rf ${TMP}
   fi
 done

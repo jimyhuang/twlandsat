@@ -17,7 +17,7 @@ DOWNLOADED=wn9wlxessv
 FINISHED=c9kytykh4g
 WORKDIR=`pwd`
 
-for i in {1..$N}
+for (( i=1; i<=$N; i++ ))
 do
   echo "Start process $i / $N"
   # get queue list

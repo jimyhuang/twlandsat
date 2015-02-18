@@ -53,9 +53,8 @@ do
     if [ -f $FINAL/final-rgb.TIF ]; then
       cd $FINAL
       gdal2tiles.py final-rgb.TIF tiles-rgb
-      bzip2 --best final-rgb.TIF
       mv -f tiles-rgb ~/landsat/processed/${NAME}/ 
-      mv -f final-rgb.TIF.bz2 ~/landsat/processed/${NAME}/
+      mv -f final-rgb-pan.TIF ~/landsat/processed/${NAME}/
     fi
   fi
 
@@ -75,9 +74,8 @@ do
     if [ -f $FINAL/final-swirnir.TIF ]; then
       cd $FINAL
       gdal2tiles.py final-swirnir.TIF tiles-swirnir
-      bzip2 --best final-swirnir.TIF
       mv -f tiles-swirnir ~/landsat/processed/${NAME}/ 
-      mv -f final-swirnir.TIF.bz2 ~/landsat/processed/${NAME}/
+      mv -f final-swirnir-pan.TIF ~/landsat/processed/${NAME}/
     fi
   fi
 

@@ -2,7 +2,7 @@
 if [ "$#" -ne 3 ]
 then
   echo "    Usage: $0 [band dir] [bands separate by comma] [landsat name]"
-  echo "  Example: $0 /tmp/LC81180442014356LGN00 4,3,2 final-rgb.TIF"
+  echo "  Example: $0 /tmp/LC81180442014356LGN00 4,3,2 final-rgb-pan.TIF"
   exit 1
 fi
 
@@ -53,6 +53,8 @@ if [ -f $DIR/${LANDSAT}_B8.TIF ]; then
   echo "Pan 5. Move processed file to final path, clean up"
   mv -f $TMP/${FILENAME} $FINAL/
   cp -f $DIR/warp_B8.tfw $FINAL/
+  cp -f $DIR/warp_B8.tfw $FINAL/${NAME}.tfw
+  gdal_edit.py -a_srs EPSG:3857 $FINAL/${FILENAME}
 
   if [ -f $FINAL/${FILENAME} ]; then
     rm -Rf $TMP

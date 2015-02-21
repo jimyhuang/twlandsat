@@ -16,6 +16,7 @@ PENDING=1f8cfkxar1
 DOWNLOADED=wn9wlxessv
 FINISHED=c9kytykh4g
 WORKDIR=`pwd`
+TMP=/tmp
 
 for i in {1..$N}
 do
@@ -34,42 +35,50 @@ do
     landsat download ${NAME}
   fi
 
-  # 2. download completed, processing
-  if [ -f ~/landsat/zip/${NAME}.tar.bz ] && [ ! -f ~/landsat/processed/${NAME}/final-pan.TIF ] ; then
+  # 2. download completed, processing image bands, pansharp
+  BANDDIR=${TMP}/${NAME}
+  FINAL=${BANDDIR}/final
+  if [ ! -d ${BANDDIR} ] && [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF ] ; then
+    mkdir -p $FINAL
+
     # update queue list
     echo "${NAME}" >> queue-downloaded.txt
     sed 's/$/,,/g' queue-downloaded.txt > queue-downloaded.csv
     curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-downloaded.csv https://www.ethercalc.org/_/${DOWNLOADED}
 
-    # image process, pansharping
+    # image process
     echo "Image processing ${NAME} ..."
+    tar -jxf ~/landsat/zip/${NAME}.tar.bz -c ${BANDDIR}
 
-    
-    R=$RANDOM
-    landsat process --pansharpen --ndvi --noclouds ~/landsat/zip/${NAME}.tar.bz
+    # process rgb
+    $WORKDIR/process/l8-pan.sh ${BANDDIR} 4,3,2 final-rgb.TIF
+    $WORKDIR/process/l8-combine-rgb.sh ${BANDDIR}/final/final-rgb.TIF
+    # $WORKDIR/process/l8-pan.sh ${BANDDIR} 7,5,3 ${NAME}
+    # $WORKDIR/process/l8-combine-swirnir.sh ${NAME} ${BANDDIR}
 
-    # TODO: NDVI version of pan
-    # TODO: tilelize file
   fi
 
-  # 3. finished processing
-  if [ -f ~/landsat/processed/${NAME}/final-pan.TIF ]; then
-    cd ~/landsat/processed/${NAME}/
+  # 3. Generate tiles
+  if [ -f $FINAL/final-rgb.TIF ]; then
+    cd $FINAL
+    gdal2tiles.py final-rgb.TIF tiles-rgb
+    bzip2 --best final-rgb.TIF
+  fi
+  if [ -f $FINAL/final-swirnir.TIF]; then
+    cd $FINAL
+    gdal2tiles.py final-swirnir.TIF tiles-swirnir
+    bzip2 --best final-swirnir.TIF
+  fi
 
-    # manupulating tiles
-    convert final-ndvi.TIF final-ndvi.png
-    gdalwarp -srcnodata 0 -dstnodata 0 final-pan.TIF final-pan.tif
-    gdalwarp -srcnodata 0 -dstnodata 0 final.TIF final.tif
-    gdal2tiles.py final-pan.tif tiles
-    bzip2 --best ./*.tif
+  # 4. finish and upload
+  if [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ]; then
+    mv -f $FINAL/*.bz ~/landsat/processed/${NAME}/
+    mv -f $FINAL/tile-* ~/landsat/processed/${NAME}/ 
 
-    # cleanup
-    rm -f *.TIF
-    rsync -rtv ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    # upload
+    rsync -rtv --bwlimit=1024 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
 
     cd $WORKDIR
-    # TODO: upload image which successful processing
-    
     echo "Writing finish record for ${NAME} ..."
     echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt
     sed 's/$/,,/g' queue-pending.txt > queue-pending.csv

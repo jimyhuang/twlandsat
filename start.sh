@@ -10,7 +10,7 @@ fi
  
 # this will limit imagemagick doesn't eat more than 4GB
 export MAGICK_MEMORY_LIMIT=1024
-export MAGICK_MAP_LIMIT=2048
+export MAGICK_MAP_LIMIT=1024
 
 PENDING=1f8cfkxar1
 DOWNLOADED=wn9wlxessv
@@ -48,8 +48,8 @@ do
     fi
 
     # process rgb
-    $WORKDIR/process/l8-pan.sh ${TMP} 4,3,2 final-rgb.TIF
-    $WORKDIR/process/l8-combine-rgb.sh ${TMP}/final/final-rgb.TIF
+    $WORKDIR/process/l8-pan.sh ${TMP} 4,3,2 final-rgb-pan.TIF
+    $WORKDIR/process/l8-combine-rgb.sh ${TMP}/final/final-rgb-pan.TIF ${TMP}/final/final-rgb.TIF
   fi
 
   # 3. Generate tiles

@@ -1,8 +1,8 @@
 #! /bin/bash
 
 DOCKER_CMD=`which docker`
-if [ ! -d /home/landsat ]; then
-  mkdir -p /home/landsat
+if [ ! -d /home/landsat/processed ]; then
+  mkdir -p /home/landsat/processed
 fi 
 
 if [ $DOCKER_CMD ]; then

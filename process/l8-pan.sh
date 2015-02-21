@@ -51,7 +51,7 @@ if [ -f $DIR/${LANDSAT}_B8.TIF ]; then
   gdalwarp -r cubic -wm 2048 -multi -srcnodata "0 0 0" -dstnodata "0 0 0" -dstalpha -wo OPTIMIZE_SIZE=TRUE -wo UNIFIED_SRC_NODATA=YES -t_srs EPSG:3857 -co TILED=YES -co COMPRESS=LZW $TMP/pan-scaled.tif $TMP/${FILENAME}
 
   echo "Pan 5. Move processed file to final path, clean up"
-  mv -f $TMP/{$FILENAME} $FINAL/
-  mv -f $TMP/{$NAME}.tfw $FINAL/
+  mv -f $TMP/${FILENAME} $FINAL/
+  mv -f $TMP/${NAME}.tfw $FINAL/
   rm -Rf $TMP
 fi

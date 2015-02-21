@@ -16,7 +16,6 @@ PENDING=1f8cfkxar1
 DOWNLOADED=wn9wlxessv
 FINISHED=c9kytykh4g
 WORKDIR=`pwd`
-TMP=/tmp
 
 for i in {1..$N}
 do
@@ -36,28 +35,21 @@ do
   fi
 
   # 2. download completed, processing image bands, pansharp
-  BANDDIR=${TMP}/${NAME}
-  FINAL=${BANDDIR}/final
-  if [ ! -f ${BANDDIR}/final/final-rgb.TIF ]; then
+  TMP=/tmp/${NAME}
+  FINAL=${TMP}/final
+  if [ ! -f ${TMP}/final/final-rgb.TIF ]; then
     mkdir -p $FINAL
 
-    # update queue list
-    echo "${NAME}" >> queue-downloaded.txt
-    sed 's/$/,,/g' queue-downloaded.txt > queue-downloaded.csv
-    curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-downloaded.csv https://www.ethercalc.org/_/${DOWNLOADED}
-
     # image process
-    echo "Image processing ${NAME} ..."
-    if [ ! -f ${BANDDIR}/${NAME}_B8.TIF ]; then
-      echo "Untar ${NAME}.tar.bz , need several minutes"
-      tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${BANDDIR}
+    echo "Processing ${NAME} to RGB..."
+    if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
+      echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
+      tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${TMP}
     fi
 
     # process rgb
-    $WORKDIR/process/l8-pan.sh ${BANDDIR} 4,3,2 final-rgb.TIF
-    $WORKDIR/process/l8-combine-rgb.sh ${BANDDIR}/final/final-rgb.TIF
-    # $WORKDIR/process/l8-pan.sh ${BANDDIR} 7,5,3 ${NAME}
-    # $WORKDIR/process/l8-combine-swirnir.sh ${NAME} ${BANDDIR}
+    $WORKDIR/process/l8-pan.sh ${TMP} 4,3,2 final-rgb.TIF
+    $WORKDIR/process/l8-combine-rgb.sh ${TMP}/final/final-rgb.TIF
   fi
 
   # 3. Generate tiles
@@ -79,6 +71,7 @@ do
 
     # upload
     rsync -rtv --bwlimit=1024 ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    rm -Rf ${TMP}
 
     cd $WORKDIR
     echo "Writing finish record for ${NAME} ..."

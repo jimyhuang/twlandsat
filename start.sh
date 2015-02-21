@@ -38,7 +38,7 @@ do
   # 2. download completed, processing image bands, pansharp
   BANDDIR=${TMP}/${NAME}
   FINAL=${BANDDIR}/final
-  if [ ! -d ${BANDDIR} ] && [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ] ; then
+  if [ ! -f ${BANDDIR}/final/final-rgb.TIF ]; then
     mkdir -p $FINAL
 
     # update queue list
@@ -48,7 +48,10 @@ do
 
     # image process
     echo "Image processing ${NAME} ..."
-    tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${BANDDIR}
+    if [ ! -f ${BANDDIR}/${NAME}_B8.TIF ]; then
+      echo "Untar ${NAME}.tar.bz , need several minutes"
+      tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${BANDDIR}
+    fi
 
     # process rgb
     $WORKDIR/process/l8-pan.sh ${BANDDIR} 4,3,2 final-rgb.TIF

@@ -38,7 +38,7 @@ do
   # 2. download completed, processing image bands, pansharp
   BANDDIR=${TMP}/${NAME}
   FINAL=${BANDDIR}/final
-  if [ ! -d ${BANDDIR} ] && [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF ] ; then
+  if [ ! -d ${BANDDIR} ] && [ ! -f ~/landsat/processed/${NAME}/final-rgb.TIF.bz ] ; then
     mkdir -p $FINAL
 
     # update queue list
@@ -48,14 +48,13 @@ do
 
     # image process
     echo "Image processing ${NAME} ..."
-    tar -jxf ~/landsat/zip/${NAME}.tar.bz -c ${BANDDIR}
+    tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${BANDDIR}
 
     # process rgb
     $WORKDIR/process/l8-pan.sh ${BANDDIR} 4,3,2 final-rgb.TIF
     $WORKDIR/process/l8-combine-rgb.sh ${BANDDIR}/final/final-rgb.TIF
     # $WORKDIR/process/l8-pan.sh ${BANDDIR} 7,5,3 ${NAME}
     # $WORKDIR/process/l8-combine-swirnir.sh ${NAME} ${BANDDIR}
-
   fi
 
   # 3. Generate tiles

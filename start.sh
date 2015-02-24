@@ -54,7 +54,8 @@ do
       cd $FINAL
       gdal2tiles.py final-rgb.TIF tiles-rgb
       mv -f tiles-rgb ~/landsat/processed/${NAME}/ 
-      mv -f final-rgb-pan.TIF ~/landsat/processed/${NAME}/
+      bzip2 --best final-rgb-pan.TIF
+      mv -f final-rgb-pan.TIF.bz2 ~/landsat/processed/${NAME}/
     fi
   fi
 
@@ -75,12 +76,13 @@ do
       cd $FINAL
       gdal2tiles.py final-swirnir.TIF tiles-swirnir
       mv -f tiles-swirnir ~/landsat/processed/${NAME}/ 
-      mv -f final-swirnir-pan.TIF ~/landsat/processed/${NAME}/
+      bzip2 --best final-swirnir-pan.TIF
+      mv -f final-swirnir-pan.TIF.bz2 ~/landsat/processed/${NAME}/
     fi
   fi
 
   # 4. finish and upload
-  if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF ]; then
+  if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
     # upload
     echo "Uploading files... needs at least 30 minutes in 256Kb"
     rsync -rtv --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
@@ -97,8 +99,7 @@ do
 
     # Clean uploaded file
     echo "Clean up tmp and uploaded files"
-    rm -Rf ~/landsat/processed/${NAME}/tiles-rgb
-    rm -Rf ~/landsat/processed/${NAME}/tiles-swirnir
+    rm -Rf ~/landsat/processed/${NAME}/
     rm -f ~/landsat/zip/${NAME}.tar.bz
     rm -Rf ${TMP}
   fi

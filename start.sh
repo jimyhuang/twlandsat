@@ -54,7 +54,7 @@ do
       cd $FINAL
       gdal2tiles.py final-rgb.TIF tiles-rgb
       mv -f tiles-rgb ~/landsat/processed/${NAME}/ 
-      bzip2 --best final-rgb-pan.TIF
+      bzip2 final-rgb-pan.TIF
       mv -f final-rgb-pan.TIF.bz2 ~/landsat/processed/${NAME}/
     fi
   fi
@@ -76,7 +76,7 @@ do
       cd $FINAL
       gdal2tiles.py final-swirnir.TIF tiles-swirnir
       mv -f tiles-swirnir ~/landsat/processed/${NAME}/ 
-      bzip2 --best final-swirnir-pan.TIF
+      bzip2 final-swirnir-pan.TIF
       mv -f final-swirnir-pan.TIF.bz2 ~/landsat/processed/${NAME}/
     fi
   fi

@@ -39,7 +39,7 @@ do
   FINAL=${TMP}/final
   mkdir -p $FINAL
   mkdir -p ~/landsat/processed/${NAME}
-  if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF ]; then
+  if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
     echo "Processing ${NAME} to RGB..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
       echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
@@ -60,7 +60,7 @@ do
   fi
 
   # 3. Generate SWIR-NIR false color 
-  if [ ! -f ~/landsat/processed/${NAME}/final-swirnir-pan.TIF ]; then
+  if [ ! -f ~/landsat/processed/${NAME}/final-swirnir-pan.TIF.bz2 ]; then
     # image process
     echo "Processing ${NAME} to SWIR-NIR false color..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then

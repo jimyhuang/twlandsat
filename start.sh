@@ -85,7 +85,7 @@ do
   if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
     # upload
     echo "Uploading files... needs at least 30 minutes in 256Kb"
-    rsync -rtv --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    rsync -rtv --progress --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
 
     # update queue
     cd $WORKDIR

@@ -20,7 +20,7 @@ listgeo -tfw $TMP/rgb-pan.tif
 
 # processing image
 echo "Auto detect brightness, needs a few minutes to process large img ..."
-BRIGHT=`identify -verbose $TMP/final-rgb-pan.tif 2>/dev/null | grep mean | awk '{print $2}' | sed -n 5p`
+BRIGHT=`identify -verbose $TMP/rgb-pan.tif 2>/dev/null | grep mean | awk '{print $2}' | sed -n 5p`
 BRIGHT=${BRIGHT%.*}
 echo "Brightness is $BRIGHT, going to convert image..."
 

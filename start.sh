@@ -84,8 +84,11 @@ do
   # 4. finish and upload
   if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
     # upload
-    echo "Uploading files... needs at least 30 minutes in 256Kb"
-    rsync -rtv --progress --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME} rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/
+    echo "Uploading pan-sharped geotiff ..."
+    rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    echo "Uploading tiles ..."
+    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-rgb rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-swirnir rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
 
     # update queue
     cd $WORKDIR

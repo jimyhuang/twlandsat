@@ -24,9 +24,9 @@ BRIGHT=${BRIGHT%.*}
 echo "Brightness is $BRIGHT, going to convert image..."
 
 if [ "$BRIGHT" -lt "$THREADHOLD" ]; then
-  convert -monitor -channel RGB -sigmoidal-contrast 10x15% -channel R -brightness-contrast 30x80% -channel G -brightness-contrast 5x30% -channel B -brightness-contrast 35x30% $TMP/swirnir-pan.tif $TMP/swirnir-pan-light.tif
+  convert -channel RGB -sigmoidal-contrast 10x15% -channel R -brightness-contrast 30x80% -channel G -brightness-contrast 5x30% -channel B -brightness-contrast 35x30% $TMP/swirnir-pan.tif $TMP/swirnir-pan-light.tif
 else
-  convert -monitor -channel RGB -sigmoidal-contrast 5x15% -channel R -brightness-contrast 30x80% -channel G -brightness-contrast 5x30% -channel B -brightness-contrast 35x30% $TMP/swirnir-pan.tif $TMP/swirnir-pan-light.tif
+  convert -channel RGB -sigmoidal-contrast 5x15% -channel R -brightness-contrast 30x80% -channel G -brightness-contrast 5x30% -channel B -brightness-contrast 35x30% $TMP/swirnir-pan.tif $TMP/swirnir-pan-light.tif
 fi
 cp -f $TMP/swirnir-pan-light.tif $FINAL
 

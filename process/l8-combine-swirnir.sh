@@ -16,6 +16,7 @@ TMP="${DIR}/tmp"
 mkdir -p $TMP
 
 cp $1 $TMP/swirnir-pan.tif
+listgeo -tfw $TMP/swirnir-pan.tif
 
 # processing image
 echo "Auto detect brightness, needs a few minutes to process large img ..."
@@ -31,8 +32,8 @@ fi
 cp -f $TMP/swirnir-pan-light.tif $FINAL
 
 # append geotiff into image
-if [ -f $DIR/warp_B8.tfw ]; then
-  mv $DIR/warp_B8.tfw $DIR/${NAME}.tfw
+if [ -f $TMP/swirnir-pan.tfw ]; then
+  mv $TMP/swirnir-pan.tfw $DIR/${NAME}.tfw
   gdal_edit.py -a_srs EPSG:3857 $FINAL
 fi
 

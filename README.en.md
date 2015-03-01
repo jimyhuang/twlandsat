@@ -25,15 +25,17 @@ After each run, this docker container will processing image into host directory,
 
   ```
   ./docker-start.sh
-  # after enter container
-  ./start.sh
+  # after enter container, start processing 1 image
+  ./start.sh 1
+  # you can processing many images, we suggest 1.5 hour per image. 10 images means 15 hours
+  ./start.sh 10
   ```
   > You can also restart docker container using this
   
   ```
   ./docker-restart.sh
     # after enter container
-  ./start.sh
+  ./start.sh 1
   ```
 
 ### __Uninstall__
@@ -49,7 +51,6 @@ After each run, this docker container will processing image into host directory,
   ```
   ./docker-install.sh
   ```
-
 
 Hardware Requirement
 --------------------

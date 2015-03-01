@@ -62,15 +62,17 @@ After each run, this docker container will processing image into host directory,
 
   ```
   ./docker-start.sh
-  # after enter container
-  ./start.sh
+  # after enter container, start processing 1 image
+  ./start.sh 1
+  # you can processing many images, we suggest 1.5 hour per image. 10 images means 15 hours
+  ./start.sh 10
   ```
   > You can also restart docker container using this
   
   ```
   ./docker-restart.sh
     # after enter container
-  ./start.sh
+  ./start.sh 1
   ```
 
 ### __Uninstall__
@@ -89,9 +91,10 @@ After each run, this docker container will processing image into host directory,
 
 硬體需求
 --------------------
-- RAM: 8GB
-- Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image
+- RAM: 2GB
+- Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image, will delete after upload
 - CPU: Multi-core will save you a lot of time.
+- Network: Stable network for downloading and uploading. 512KB stream will takes 30-50 mins for 1gb upload.
 
 MAC安裝與使用
 ----------

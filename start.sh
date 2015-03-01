@@ -9,24 +9,23 @@ else
 fi
  
 # this will limit imagemagick doesn't eat more than 4GB
-export MAGICK_MEMORY_LIMIT=512
+export MAGICK_MEMORY_LIMIT=1024
 export MAGICK_MAP_LIMIT=512
 
-PENDING=1f8cfkxar1
-DOWNLOADED=wn9wlxessv
-FINISHED=c9kytykh4g
 WORKDIR=`pwd`
+QUEUE=/tmp/queue
 
 for (( i=1; i<=$N; i++ ))
 do
   echo "Start process $i / $N"
   # get queue list
-  curl -s https://www.ethercalc.org/${PENDING}.csv | tr -d ',' > queue-pending.txt
-  curl -s https://www.ethercalc.org/${DOWNLOADED}.csv | tr -d ',' > queue-downloaded.txt
-  curl -s https://www.ethercalc.org/${FINISHED}.csv | tr -d ',' > queue-finished.txt
 
   # get lastest landsat filename to process
-  NAME=`head -n1 queue-pending.txt`
+  rsync -rtv rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/ $QUEUE
+  NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
+  tail -n +2 $QUEUE/pending > $TMP/pending && cp -f $TMP/pending $QUEUE/pending
+  echo "$NAME" >> $QUEUE/processing
+  rsync -rtv $QUEUE/p* rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
 
   # 1. download landsat
   if [ ! -f ~/landsat/zip/${NAME}.tar.bz ]; then
@@ -91,14 +90,9 @@ do
     rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-swirnir rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
 
     # update queue
-    cd $WORKDIR
-    echo "Writing finish record for ${NAME} ..."
-    echo "$(tail -n +2 queue-pending.txt)" > queue-pending.txt
-    sed 's/$/,,/g' queue-pending.txt > queue-pending.csv
-    curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-pending.csv https://www.ethercalc.org/_/${PENDING}
-    echo "${NAME}" >> queue-finished.txt
-    sed 's/$/,,/g' queue-finished.txt > queue-finished.csv
-    curl -X PUT -H 'Content-Type: text/csv' --data-binary @queue-finished.csv https://www.ethercalc.org/_/${FINISHED}
+    rsync -rtv rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/completed $QUEUE/
+    echo "$NAME" >> $QUEUE/completed
+    rsync -rtv $QUEUE/completed rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
 
     # Clean uploaded file
     echo "Clean up tmp and uploaded files"

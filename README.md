@@ -58,6 +58,26 @@
 
 ### __技術細節__
 
+協同式算圖，應用以下Open Source工具：
+  - Docker Image：
+    - Docker是一種Portable Linux，可以輕易在任何平台運行同一套配置的Linux，所有的運算在 Docker 中執行，表示無須擔心執行程式的人有其他的 Linux 環境配置，甚至執行的人無須有Linux。
+  - Ofero Toolbox：
+    - 主要進行 Pan-sharpening 的運算，可將 Landsat 7 / Landsat 8 的衛星圖，從30M的解析度放大至15M
+  - Gdal Utilities：
+    - gdalwarp，進行影像的投影變換（衛星影像和Online Map不同）
+    - gdaledit，將TIF檔案得地理資訊儲存回去。
+    - gdal2tiles，將GEOTIFF檔案，轉換成線上地圖可用的切圖檔案。
+  - ImageMagick：
+    - 像素基礎影像處理，合成衛星不同頻譜的影像，調色、亮度調整
+  - Rsync：
+    - 進行影像同步及上傳，分派Queue檔案
+
+Web瀏覽，應用以下Open Source工具：
+  - Leaflet
+    - Open Source Map Browser，有多種Plugin處理
+  - Map Before After
+    - JQuery Based 地圖前後比較工具
+
 ### __安裝__
 
 1. 準備你的Docker環境

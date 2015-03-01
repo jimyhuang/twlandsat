@@ -7,13 +7,12 @@
     - [x] Landsat 8 衛星圖，每當新增自動演算增加（2013至今）
     - [ ] Landsat 5 衛星圖（1981-2011）
     - [ ] Corona 衛星圖（1960-1972） 
-  - [x] 提供開放原始碼衛星圖資，分散協同運算解決方案
+  - [x] 提供開放原始碼衛星圖資，分散協同運算解決方案（詳看[技術細節]）
     - [x] 多人共同運算，每個人電腦皆可安裝簡單指令協助算圖
     - [x] 全色態銳化(Pansharpening)運算以提高解析度
     - [x] RGB色彩圖資自動校準季節色
     - [x] SWIR-NIR，短波紅外線、近紅外線反色圖產生
     - [ ] 分群演算
-      - 詳看[技術細節]
   - [x] 提供 Web 瀏覽器供一般人輕易就可以檢視、重組衛星圖
     - [x] 提供時間前後差異比較瀏覽功能
     - [ ] 提供多時間自動播放功能
@@ -31,12 +30,31 @@
 
 不過賽豬公的自力救濟還是有點機會，因為美國NASA提供的免費圖資，可以拼湊出台灣過去數十年的地表影像紀錄。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
 
-**你也可以參與算圖的行列**
+**參與與協助**
 ==========================
-只要你有 Docker 環境，就可以協力算圖！一起算圖現在就來[簽名一下](https://g0v.hackpad.com/oZjrZwHKc8r)...
 
-安裝與使用
-----------
+加入社團：
+> 目前有一群關心環境、地理資訊、程式高手組成的Facebook社團，在這社團可以一起討論如何運用衛星圖，以及分享相關GIS資訊。
+  - [現在就加入](https://www.facebook.com/groups/610479852418250/)
+
+應用圖資：
+> 時間的軌跡，需要了解台灣過去發展歷史的朋友，才知道該怎麼看圖。例如：海岸線變化，地表的種植地增加減少，城市擴張...
+  - [線上瀏覽地圖](http://twlandsat.jimmyhub.net)
+
+撰寫程式：
+> 眼尖的你，會發現計畫目標中的勾選框，並沒有全部完成。這當然是因為需要你一起加入 -- 
+  - [加入開發者](https://github.com/jimyhuang/twlandsat/issues/1)
+
+演算衛星圖：
+> 只要你有下列規格的電腦，優良的網路速度，即可一同協助我們演算過往30年的圖資
+  - 硬體需求
+    - CPU：多核心，會讓你算圖時還可做別的事情，瀏覽網頁
+    - RAM：至少 2GB，建議4GB
+    - 硬碟空間：至少剩餘 10 GB
+    - 網路：穩定不中斷的網路。算圖結果會上傳至Server，512KB 上傳，至少需要30-40分鐘完成。
+
+**安裝說明**
+------------
 ### __Install__
 
 1. Prepare your docker host enviromnet.
@@ -82,12 +100,6 @@ After each run, this docker container will processing image into host directory,
   ./docker-install.sh
   ```
 
-硬體需求
---------------------
-- RAM: 2GB
-- Harddisk: at least 10 GB. Will generate 2.5 GB per landsat image, will delete after upload
-- CPU: Multi-core will save you a lot of time.
-- Network: Stable network for downloading and uploading. 512KB stream will takes 30-50 mins for 1gb upload.
 
 MAC安裝與使用
 ----------

@@ -2,41 +2,34 @@
 ====================
   > switch to [English Readme](https://github.com/jimyhuang/twlandsat/blob/master/README.en.md)
 
-別人已經上太空，我們還在賽豬公，也算是對於台灣自有衛星圖 Open Data 的現況描述。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
+計畫目標：
+  - [x] 提供台灣1980年至今內授權無虞的可見光衛星空照圖，供NPO、研究領域、新聞媒體 ...等各界，免費進行各種應用
+    - [x] Landsat 8 衛星圖，每當新增自動演算增加（2013至今）
+    - [ ] Landsat 5 衛星圖（1981-2011）
+    - [ ] Corona 衛星圖（1960-1972） 
+  - [x] 提供開放原始碼衛星圖資，分散協同運算解決方案
+    - [x] 多人共同運算，每個人電腦皆可安裝簡單指令協助算圖
+    - [x] 全色態銳化(Pansharpening)運算以提高解析度
+    - [x] RGB色彩圖資自動校準季節色
+    - [x] SWIR-NIR，短波紅外線、近紅外線反色圖產生
+    - [ ] 分群演算
+      - 詳看[技術細節]
+  - [x] 提供 Web 瀏覽器供一般人輕易就可以檢視、重組衛星圖
+    - [x] 提供時間前後差異比較瀏覽功能
+    - [ ] 提供多時間自動播放功能
+    - [ ] 提供多種不同地圖疊圖
 
+計畫現況：
   - [討論區](https://www.facebook.com/groups/610479852418250/)
-  - [網站](http://twlandsat.jimmyhub.net/#118044,LC81180442014276LGN00,LC81180442015023LGN00,12,23.428283881382345,120.32964706420898)
-  - [Gallery](https://www.flickr.com/search/?q=twlandsat&m=tags) (Flickr Tag twlandsat)
+  - [線上地圖](http://twlandsat.jimmyhub.net/)
+  - [Gallery](https://www.flickr.com/search/?q=twlandsat&m=tags) (歡迎將捷圖上傳至Flickr，Tag twlandsat)
 
-衛星圖資與運算方式
-------------------
-圖資來自美國 [USGS](http://earthexplorer.usgs.gov) 供應的免費、定期的科研 Landsat 衛星空照圖，取出 Landsat 衛星經過台灣4塊經緯度，進行全色態銳化(Pansharpening)以提高解析度，並裁切成可供 Web 地圖瀏覽程式運用的 Tile。
+**緣起與構想**
+====================
+「賽豬公上太空」 計畫的名字緣起，來自 Dan Berkenstock 在 [TED 的演講](https://www.ted.com/talks/dan_berkenstock_the_world_is_one_big_dataset_now_how_to_photograph_it?language=zh-tw)，提到：「發射衛星進行空照圖有必要這麼貴嗎？」
+然後 Dan Berkenstock 創立的公司，就開始發射小型衛星 SkySat，來提供全球圖資。深感佩服的當下，卻反觀台灣現階段仍在掙扎跟政府取得衛星圖，當真是別人已上外太空，我們還在殺豬公的真實寫照。
 
-現況展示
---------
-1. [線上地圖](http://twlandsat.jimmyhub.net/#118044,LC81180442014276LGN00,LC81180442015023LGN00,12,23.428283881382345,120.32964706420898)
-  - 線上比較 2014-11-04 / 2015-01-23 兩個時間點的西部穀倉，可以輕易看到收割前後的種植覆蓋
-
-2.  2014-12-31 青境農場(Pansharpening)
-  
-  <img src="https://farm9.staticflickr.com/8659/16335256707_bb9aa4f666_o.png" width="300" alt="RGB">
-
-3. NDVI - Normalized Difference Vegetation Index ([常態化差值植生指標](http://zh.wikipedia.org/wiki/%E5%B8%B8%E6%85%8B%E5%8C%96%E5%B7%AE%E5%80%BC%E6%A4%8D%E7%94%9F%E6%8C%87%E6%A8%99))
-  應用近紅外光反射取得植生的生長狀態
-  
-  <img src="https://farm9.staticflickr.com/8620/16332528928_1221c120d0_o.png" width="300px" alt="Taipei-NDVI" />
-
-4. 植生變遷(TODO)
-  運用NDVI的差異，了解過去16天內植物的生長差異，並產出 geojson 供線上檢視
-  
-  <img src="https://farm9.staticflickr.com/8652/16334142509_f5989b377d_o.png" width="300px" alt="NDVI-diff-geojson" />
-
-困境
-----------
-  - 目前應用 landsat-util 來進行取圖、全像銳化（Pansharpening），然而得算很久，一張圖算完含上傳要算1-2小時
-  - NDVI 的 geojson 差異比較，等圖都取完後再比較才準
-  - 空間佔用很大，一張圖壓縮後約需要 2gb 空間儲存
-
+不過賽豬公的自力救濟還是有點機會，因為美國NASA提供的免費圖資，可以拼湊出台灣過去數十年的地表影像紀錄。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
 
 **你也可以參與算圖的行列**
 ==========================

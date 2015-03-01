@@ -86,8 +86,8 @@ do
     echo "Uploading pan-sharped geotiff ..."
     rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
     echo "Uploading tiles ..."
-    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-rgb rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
-    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-swirnir rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    rsync -rtv --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    rsync -rtv --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-swirnir rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
 
     # update queue
     rsync -rtv rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/completed $QUEUE/

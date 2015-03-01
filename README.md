@@ -26,9 +26,9 @@
 **緣起與構想**
 ====================
 「賽豬公上太空」 計畫的名字緣起，來自 Dan Berkenstock 在 [TED 的演講](https://www.ted.com/talks/dan_berkenstock_the_world_is_one_big_dataset_now_how_to_photograph_it?language=zh-tw)，提到：「發射衛星進行空照圖有必要這麼貴嗎？」
-然後 Dan Berkenstock 創立的公司，就開始發射小型衛星 SkySat，來提供全球圖資。深感佩服的當下，卻反觀台灣現階段仍在掙扎跟政府取得衛星圖，當真是別人已上外太空，我們還在殺豬公的真實寫照。
+然後 Dan Berkenstock 創立的公司，就開始發射小型衛星 SkySat，來提供全球圖資。深感佩服的當下，卻反觀台灣現階段仍在掙扎跟政府取得授權無虞的衛星圖，當真是別人已上外太空，我們還在殺豬公的真實寫照。
 
-不過賽豬公的自力救濟還是有點機會，因為美國NASA提供的免費圖資，可以拼湊出台灣過去數十年的地表影像紀錄。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
+不過賽豬公的自力救濟還是有點機會，讓技術或觀看的權力，不再把持於菁英手上，因為美國NASA提供的免費圖資，可以拼湊出台灣過去數十年的地表影像紀錄。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
 
 **參與與協助**
 ==========================
@@ -53,49 +53,56 @@
     - 硬碟空間：至少剩餘 10 GB
     - 網路：穩定不中斷的網路。算圖結果會上傳至Server，512KB 上傳，至少需要30-40分鐘完成。
 
-**安裝說明**
+**安裝與技術說明**
 ------------
-### __Install__
 
-1. Prepare your docker host enviromnet.
-  > read https://docs.docker.com/userguide/
+### __技術細節__
 
-2. Pull prepared image from [Docker hub](https://registry.hub.docker.com/u/jimyhuang/twlandsat/)
-  > just using this shell to speed up things.
+### __安裝__
+
+1. 準備你的Docker環境
+  > 閱讀 [Windows 安裝 Docker 指引](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md)
+
+2. 複製本計畫檔案於目錄下
+  > git clone 可以直接複製專案
   ```
-  git pull https://github.com/jimyhuang/twlandsat.git
+  git clone https://github.com/jimyhuang/twlandsat.git
   ./docker-install.sh
   ```
 
-3. Run Docker and start processing
-  > *Attention* this will exhause all of your cpu, memory, even if disk space. Please check *hardware requirement* below.
-After each run, this docker container will processing image into host directory, then upload processed image to central server.
-
+3. 啟動
+  > *注意* ，這可能會耗盡你的記憶體和CPU、甚至硬碟空間，請先確認是否有足夠的硬體配置。
+  > 登入docker
   ```
   ./docker-start.sh
-  # after enter container, start processing 1 image
+  ```
+  登入後，可以進行第一次的算圖，start.sh 1，表示算一張圖的意思
+  ```
   ./start.sh 1
-  # you can processing many images, we suggest 1.5 hour per image. 10 images means 15 hours
+  ```
+  當順利算完一張圖後，也可以一次排程很多張，會慢慢算到完為止。一張圖演算加上傳以 1.5小時計，10張圖就要15小時。
+  ```
   ./start.sh 10
   ```
-  > You can also restart docker container using this
   
+4. 重啟  
+  > 碰到死機，可以在 docker 裡頭按下 Ctrl + C，然後 ./start.sh 繼續。
+  > 或是更直接的方式，乾脆登出Docker，然後重新開啟、重新start.sh
   ```
   ./docker-restart.sh
     # after enter container
   ./start.sh 1
   ```
 
-### __Uninstall__
-  > Uninstall will purge docker image, and /home/landsat directory.
+### __反安裝/刪除__
+  > 反安裝程式將會釋放所有這運算所佔用的圖片除存空間，刪除 /home/landsat 的資料，以及 /tmp/ 相關的資料，和Docker本身。
   
   ```
   ./docker-uninstall.sh
   ```
 
-### __Update__
-  > Just pull image again
-  
+### __更新最新的twlandsat__
+  > 執行以下指令即可
   ```
   ./docker-install.sh
   ```
@@ -131,8 +138,8 @@ MAC安裝與使用
   boot2docker delete
   ```
 
-資源
-====
+參考資源
+========
 
 非技術/參考案例
 -----------------

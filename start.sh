@@ -13,23 +13,24 @@ export MAGICK_MEMORY_LIMIT=1024
 export MAGICK_MAP_LIMIT=512
 
 WORKDIR=`pwd`
-QUEUE=/tmp/queue
 
 for (( i=1; i<=$N; i++ ))
 do
   echo "Start process $i / $N"
   # get queue list
+  QUEUE=/tmp/queue
 
   # get lastest landsat filename to process
-  rsync -rtv rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/ $QUEUE
+  rsync -rt rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/ $QUEUE
   NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
   tail -n +2 $QUEUE/pending > $TMP/pending && cp -f $TMP/pending $QUEUE/pending
   echo "$NAME" >> $QUEUE/processing
-  rsync -rtv $QUEUE/p* rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
+  rsync -rt $QUEUE/pending rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
+  rsync -rtv $QUEUE/processing rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
 
   # 1. download landsat
   if [ ! -f ~/landsat/zip/${NAME}.tar.bz ]; then
-    echo "Downloading ${NAME} ..."
+    echo "Step 1. Downloading ${NAME} ..."
     landsat download ${NAME}
   fi
 
@@ -39,7 +40,7 @@ do
   mkdir -p $FINAL
   mkdir -p ~/landsat/processed/${NAME}
   if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
-    echo "Processing ${NAME} to RGB..."
+    echo "Step 2. Processing ${NAME} to RGB..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
       echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
       tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${TMP}
@@ -61,7 +62,7 @@ do
   # 3. Generate SWIR-NIR false color 
   if [ ! -f ~/landsat/processed/${NAME}/final-swirnir-pan.TIF.bz2 ]; then
     # image process
-    echo "Processing ${NAME} to SWIR-NIR false color..."
+    echo "Step 3. Processing ${NAME} to SWIR-NIR false color..."
     if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
       echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
       tar -jxf ~/landsat/zip/${NAME}.tar.bz -C ${TMP}
@@ -83,14 +84,15 @@ do
   # 4. finish and upload
   if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
     # upload
-    echo "Uploading pan-sharped geotiff ..."
+    echo "Step 4. Uploading pan-sharped geotiff ..."
     rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
     echo "Uploading tiles ... needs a lots of time"
     rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-rgb rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
     rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --human-readable --info=progress2 ~/landsat/processed/${NAME}/tiles-swirnir rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
 
     # update queue
-    rsync -rtv rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/completed $QUEUE/
+    echo "Step 5. Writing completed log"
+    rsync -rt rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/completed $QUEUE/
     echo "$NAME" >> $QUEUE/completed
     rsync -rtv $QUEUE/completed rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
 

@@ -56,9 +56,10 @@
     - 網路：穩定不中斷的網路。算圖結果會上傳至Server，512KB 上傳，至少需要30-40分鐘完成。
 
 安裝與技術說明
-------------
+==============
 
-### __技術細節__
+技術細節
+--------
 
 協同式算圖，應用以下Open Source工具：
   - Docker Image：
@@ -80,7 +81,8 @@ Web瀏覽，應用以下Open Source工具：
   - Map Before After
     - JQuery Based 地圖前後比較工具
 
-### __安裝__
+安裝
+----
 
 1. 準備你的Docker環境
   > 閱讀 [Windows 安裝 Docker 指引](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md)
@@ -116,19 +118,22 @@ Web瀏覽，應用以下Open Source工具：
   ./start.sh 1
   ```
 
-### __反安裝/刪除__
+反安裝/刪除
+--------
+
   > 反安裝程式將會釋放所有這運算所佔用的圖片除存空間，刪除 /home/landsat 的資料，以及 /tmp/ 相關的資料，和Docker本身。
   
   ```
   ./docker-uninstall.sh
   ```
 
-### __更新最新的twlandsat__
+更新最新的twlandsat
+-------------------
+
   > 執行以下指令即可
   ```
   ./docker-install.sh
   ```
-
 
 MAC安裝與使用
 ----------

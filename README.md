@@ -25,14 +25,14 @@
   - [線上地圖](http://twlandsat.jimmyhub.net/)
   - [Gallery](https://www.flickr.com/search/?q=twlandsat&m=tags) (歡迎將捷圖上傳至Flickr，Tag twlandsat)
 
-**緣起與構想**
+緣起與構想
 ====================
 「賽豬公上太空」 計畫的名字緣起，來自 Dan Berkenstock 在 [TED 的演講](https://www.ted.com/talks/dan_berkenstock_the_world_is_one_big_dataset_now_how_to_photograph_it?language=zh-tw)，提到：「發射衛星進行空照圖有必要這麼貴嗎？」
 然後 Dan Berkenstock 創立的公司，就開始發射小型衛星 SkySat，來提供全球圖資。深感佩服的當下，卻反觀台灣現階段仍在掙扎跟政府取得授權無虞的衛星圖，當真是別人已上外太空，我們還在殺豬公的真實寫照。
 
 不過賽豬公的自力救濟還是有點機會，讓技術或觀看的權力，不再把持於菁英手上，因為美國NASA提供的免費圖資，可以拼湊出台灣過去數十年的地表影像紀錄。期待本計畫提供的 Open Source 技術解決方案越亦成熟下，真正能夠拉近網路科技、地理資訊應用，與環境監測的距離。
 
-**參與與協助**
+參與與協助
 ==========================
 
 加入社團：
@@ -55,7 +55,7 @@
     - 硬碟空間：至少剩餘 10 GB
     - 網路：穩定不中斷的網路。算圖結果會上傳至Server，512KB 上傳，至少需要30-40分鐘完成。
 
-**安裝與技術說明**
+安裝與技術說明
 ------------
 
 ### __技術細節__

@@ -97,6 +97,10 @@ Web瀏覽，應用以下Open Source工具：
 
 3. 啟動
   > *注意* ，這可能會耗盡你的記憶體和CPU、甚至硬碟空間，請先確認是否有足夠的硬體配置。
+  > CPU：多核心，會讓你算圖時還可做別的事情，瀏覽網頁
+  > RAM：Docker Container內至少 2GB，建議4GB
+  > 硬碟空間：至少剩餘 10 GB，每次算完會清除，空間滿載，也可用 ./docker-uninstall.sh 直接清除
+  > 網路：穩定不中斷的網路。算圖結果會上傳至Server，512KB 上傳，至少需要30-40分鐘完成。
   > 登入docker
   ```
   ./docker-start.sh

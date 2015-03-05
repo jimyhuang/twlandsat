@@ -91,6 +91,7 @@ Web瀏覽，應用以下Open Source工具：
   > git clone 可以直接複製專案
   ```
   git clone https://github.com/jimyhuang/twlandsat.git
+  cd twlandsat/
   ./docker-install.sh
   ```
 

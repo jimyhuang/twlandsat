@@ -1,13 +1,14 @@
 #! /bin/sh
 
-STARTED=`docker ps -q -f name=twlandsat`
-STOPPED=`docker ps -aq -f name=twlandsat`
-if [ $STARTED ]; then
+STARTED=`docker ps | grep twlandsat`
+STOPPED=`docker ps -a -f exited=0 | grep twlandsat`
+
+if [ -n "$STARTED" ]; then
   echo "Docker attach exists container ... "
   docker attach twlandsat
   exit
 fi
-if [ $STOPPED ]; then
+if [ -n "$STOPPED" ]; then
   echo "Docker start and attach ... "
   docker start twlandsat
   docker attach twlandsat

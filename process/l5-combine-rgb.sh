@@ -23,7 +23,7 @@ for BAND in {3,2,1}; do
     gdalwarp -t_srs EPSG:3857 $FILE $DIR/$BAND-projected.tif;
   fi
 done
-convert -combine $DIR/{3,2,1}-projected.tif rgb.tif
+convert -monitor -combine $DIR/{3,2,1}-projected.tif $TMP/rgb.tif
 
 echo "Pan 4. Remove black border of image and scale"
 gdal_translate -ot Byte -scale 0 65535 0 255 -a_nodata "0 0 0" $TMP/rgb.tif $TMP/rgb-scaled.tif

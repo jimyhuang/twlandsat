@@ -26,7 +26,7 @@ do
   rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
   NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
   LTVER=${NAME:0:3}
-  if [ "LTVER" -ne "LT5"]; then
+  if [ "LTVER" -ne "LT5" ]; then
     echo "Landsat version wrong";
     exit 1;
   fi

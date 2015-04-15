@@ -1,5 +1,7 @@
 #! /bin/bash
 
+RSYNC="rsync://twlandsat@twlandsat.jimmyhub.net"
+
 # how many times to process image
 if [ "$#" -ne 1 ]
 then
@@ -21,12 +23,12 @@ do
   QUEUE=/tmp/queue
 
   # get lastest landsat filename to process
-  rsync -rt rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/ $QUEUE
+  rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
   NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
   tail -n +2 $QUEUE/pending > $TMP/pending && cp -f $TMP/pending $QUEUE/pending
   echo "$NAME" >> $QUEUE/processing
-  rsync -rt $QUEUE/pending rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
-  rsync -rtv $QUEUE/processing rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
+  rsync -rt $QUEUE/pending $RSYNC/twlandsat-queue/
+  rsync -rtv $QUEUE/processing $RSYNC/twlandsat-queue/
 
   # 1. download landsat
   if [ ! -f ~/landsat/zip/${NAME}.tar.bz ]; then
@@ -85,17 +87,17 @@ do
   if [ -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
     # upload
     echo "Step 4. Uploading pan-sharped geotiff ..."
-    rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 $RSYNC/twlandsat/processed/${NAME}/
     echo "Uploading tiles-rgb in ${NAME} at $(date)"
-    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb $RSYNC/twlandsat/processed/${NAME}/
     echo "Uploading tiles-swirnir in ${NAME} at $(date)"
-    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-swirnir rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat/processed/${NAME}/
+    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-swirnir $RSYNC/twlandsat/processed/${NAME}/
 
     # update queue
     echo "Step 5. Writing completed log"
-    rsync -rt rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/completed $QUEUE/
+    rsync -rt $RSYNC/twlandsat-queue/completed $QUEUE/
     echo "$NAME" >> $QUEUE/completed
-    rsync -rtv $QUEUE/completed rsync://twlandsat@twlandsat.jimmyhub.net/twlandsat-queue/
+    rsync -rtv $QUEUE/completed $RSYNC/twlandsat-queue/
 
     # Clean uploaded file
     echo "Clean up tmp and uploaded files"

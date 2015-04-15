@@ -1,6 +1,6 @@
 #! /bin/bash
 
-RSYNC="rsync://twlandsat@twlandsat.jimmyhub.net"
+RSYNC="rsync://twlandsat@static.jimmyhub.net"
 
 # how many times to process image
 if [ "$#" -ne 1 ]

@@ -15,6 +15,7 @@ export MAGICK_MEMORY_LIMIT=1024
 export MAGICK_MAP_LIMIT=512
 
 WORKDIR=`pwd`
+mkdir -p ~/landsat/zip
 
 for (( i=1; i<=$N; i++ ))
 do
@@ -26,7 +27,7 @@ do
   rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
   NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
   LTVER=${NAME:0:3}
-  if [ "LTVER" -ne "LT5" ]; then
+  if [ "$LTVER" -ne "LT5" ]; then
     echo "Landsat version wrong";
     exit 1;
   fi

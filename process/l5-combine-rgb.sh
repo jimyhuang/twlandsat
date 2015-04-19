@@ -32,7 +32,7 @@ cp ${NAME}.tfw rgb-scaled.tfw
 gdal_translate -a_nodata "0 0 0" $DIR/rgb.tif $DIR/rgb-scaled.tif
 gdalwarp -r cubic -wm 1024 -multi -srcnodata "0 0 0" -dstnodata "0 0 0" -dstalpha -wo OPTIMIZE_SIZE=TRUE -wo UNIFIED_SRC_NODATA=YES -t_srs EPSG:3857 -co TILED=YES -co COMPRESS=LZW $DIR/rgb-scaled.tif $DIR/rgb-s.tif
 
-convert -monitor -channel B -gamma 0.6 -channel R -gamma 1.01 -channel RGB -sigmoidal-contrast 33x12% ${DIR}/rgb-s.tif ${DIR}/${NAME}.tif
+convert -monitor -channel B -gamma 0.60 -channel R -gamma 1.00 -channel RGB -sigmoidal-contrast 20x13% ${DIR}/rgb-s.tif ${DIR}/${NAME}.tif
 
 gdal_edit.py -a_srs EPSG:3857 ${DIR}/${NAME}.tif
 cp -f $DIR/${NAME}.tif $FINAL

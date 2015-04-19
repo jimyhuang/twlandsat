@@ -23,6 +23,6 @@ if [ ! $STARTED ] && [ ! $STOPPED ]; then
     -e "RSYNC_PASSWORD=1A5%QfFx%S8%" \
     -v /home/landsat:/root/landsat \
     -v $PWD:/home/twlandsat \
-    -i -t jimyhuang/twlandsat /bin/bash
+    -i -t jimyhuang/twlandsat /home/twlandsat/start.sh
   exit
 fi

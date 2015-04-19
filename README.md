@@ -137,6 +137,7 @@ Web瀏覽，應用以下Open Source工具：
 
   > 執行以下指令即可
   ```
+  ./git pull
   ./docker-install.sh
   ```
 

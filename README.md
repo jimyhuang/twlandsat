@@ -115,7 +115,7 @@ Web瀏覽，應用以下Open Source工具：
   ```
   
 4. 重啟  
-  > 碰到死機，可以在 docker 裡頭按下 Ctrl + C，然後 ./start.sh 繼續。
+  > 碰到死當機，可以在 docker 裡頭按下 Ctrl + C，然後 ./start.sh 繼續。
   > 或是更直接的方式，乾脆登出Docker，然後重新開啟、重新start.sh
   ```
   ./docker-restart.sh
@@ -162,7 +162,7 @@ MAC安裝與使用
   ```
   boot2docker up
   ```
-5. 接下來docker的指令一樣
+5. 接下來docker的指令跟上述一樣
 6. 結束以後, 記得把boo2docker停下來
 
   ```

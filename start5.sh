@@ -43,7 +43,7 @@ do
 
   tail -n +2 $TMP/pending > $TMP/pp && cp -f $TMP/pp $QUEUE/pending
   echo "$NAME" >> $QUEUE/processing
-  rsync -rt $QUEUE/pending $RSYNC/twlandsat-queue/
+  rsync -rtv $QUEUE/pending $RSYNC/twlandsat-queue/
   rsync -rtv $QUEUE/processing $RSYNC/twlandsat-queue/
 
   # 1. download landsat

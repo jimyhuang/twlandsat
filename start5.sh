@@ -3,11 +3,17 @@
 RSYNC="rsync://twlandsat@static.jimmyhub.net"
 
 # how many times to process image
-if [ "$#" -ne 1 ]
-then
-  N=1
+if [ "$#" -ne 2 ]; then
+  echo "$0 <times> <your_name_without_space>"
+  echo "$0 5 jimmy"
+  exit
+fi
+
+N=$1
+if [ -n "$2" ]; then
+  CREDIT=$2
 else
-  N=$1
+  CREDIT=''
 fi
  
 # this will limit imagemagick doesn't eat more than 4GB
@@ -81,7 +87,7 @@ do
     # update queue
     echo "Step 5. Writing completed log"
     rsync -rt $RSYNC/twlandsat-queue/completed $QUEUE/
-    echo "$NAME" >> $QUEUE/completed
+    echo "$NAME,$CREDIT" >> $QUEUE/completed
     rsync -rtv $QUEUE/completed $RSYNC/twlandsat-queue/
 
     # Clean uploaded file

@@ -4,8 +4,9 @@ RSYNC="rsync://twlandsat@static.jimmyhub.net"
 
 # how many times to process image
 if [ "$#" -ne 2 ]; then
-  echo "$0 <times> <your_name_without_space>"
-  echo "$0 5 jimmy"
+  echo -e "\e[1;31m[please add at least 2 argument]\e[0m eg:"
+  echo "  $0 <times> <your_name_without_space>"
+  echo "  $0 5 jimmy"
   exit
 fi
 

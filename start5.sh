@@ -33,14 +33,15 @@ do
   # get lastest landsat filename to process
   rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
   cat $QUEUE/completed | awk '{print $1}' > $QUEUE/ctmp
-  NAME=`grep -v -x -f $QUEUE/ctmp $QUEUE/pending | head -n1`
+  grep -v -x -f $QUEUE/ctmp $QUEUE/pending > $TMP/pending
+  NAME=`cat $TMP/pending | head -n1`
   LTVER=${NAME:0:3}
   if [ "$LTVER" -ne "LT5" ] && [ "$LTVER" -ne "LT4" ] ; then
     echo "Landsat version wrong";
     exit 1;
   fi
 
-  tail -n +2 $QUEUE/pending > $TMP/pending && cp -f $TMP/pending $QUEUE/pending
+  tail -n +2 $TMP/pending > $TMP/pp && cp -f $TMP/pp $QUEUE/pending
   echo "$NAME" >> $QUEUE/processing
   rsync -rt $QUEUE/pending $RSYNC/twlandsat-queue/
   rsync -rtv $QUEUE/processing $RSYNC/twlandsat-queue/

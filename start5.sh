@@ -32,7 +32,8 @@ do
 
   # get lastest landsat filename to process
   rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
-  NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
+  cat $QUEUE/completed | awk '{print $1}' > $QUEUE/ctmp
+  NAME=`grep -v -x -f $QUEUE/ctmp $QUEUE/pending | head -n1`
   LTVER=${NAME:0:3}
   if [ "$LTVER" -ne "LT5" ] && [ "$LTVER" -ne "LT4" ] ; then
     echo "Landsat version wrong";
@@ -88,7 +89,7 @@ do
     # update queue
     echo "Step 5. Writing completed log"
     rsync -rt $RSYNC/twlandsat-queue/completed $QUEUE/
-    echo "$NAME,$CREDIT" >> $QUEUE/completed
+    echo "$NAME $CREDIT" >> $QUEUE/completed
     rsync -rtv $QUEUE/completed $RSYNC/twlandsat-queue/
 
     # Clean uploaded file

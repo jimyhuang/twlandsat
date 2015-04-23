@@ -36,7 +36,7 @@ do
   grep -v -x -f $QUEUE/ctmp $QUEUE/pending > $TMP/pending
   NAME=`cat $TMP/pending | head -n1`
   LTVER=${NAME:0:3}
-  if [ "$LTVER" -ne "LT5" ] && [ "$LTVER" -ne "LT4" ] ; then
+  if [ "$LTVER" != "LT5" ] && [ "$LTVER" != "LT4" ] ; then
     echo "Landsat version wrong";
     exit 1;
   fi

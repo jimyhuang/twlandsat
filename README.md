@@ -107,11 +107,11 @@ Web瀏覽，應用以下Open Source工具：
   ```
   登入後，可以進行第一次的算圖，start.sh 1，表示算一張圖的意思
   ```
-  ./start.sh 1
+  ./start.sh 1 my_name
   ```
   當順利算完一張圖後，也可以一次排程很多張，會慢慢算到完為止。一張圖演算加上傳以 1.5小時計，10張圖就要15小時。
   ```
-  ./start.sh 10
+  ./start.sh 10 my_name
   ```
   
 4. 重啟  
@@ -120,7 +120,7 @@ Web瀏覽，應用以下Open Source工具：
   ```
   ./docker-restart.sh
     # after enter container
-  ./start.sh 1
+  ./start.sh 1 my_name
   ```
 
 反安裝/刪除

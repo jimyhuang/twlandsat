@@ -29,6 +29,7 @@ do
   echo "Start process $i / $N"
   # get queue list
   QUEUE=/tmp/queue
+  TMP="/tmp"
 
   # get lastest landsat filename to process
   rsync -rt $RSYNC/twlandsat-queue/ $QUEUE

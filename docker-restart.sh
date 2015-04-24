@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 STARTED=`docker ps -q -f name=twlandsat`
 if [ $STARTED ]; then

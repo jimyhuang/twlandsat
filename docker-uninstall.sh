@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 # remove twlandsat image
 while true; do
   read -p "Uninstall twlandsat, remove docker and remove current_dir/landsat directory. y/n?" yn

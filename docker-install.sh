@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 DOCKER_CMD=`which docker`
 if [ ! -d /home/landsat/processed ]; then

@@ -86,7 +86,12 @@ Web瀏覽，應用以下Open Source工具：
 
 1. 準備你的Docker環境
   > 閱讀 [Windows 安裝 Docker 指引](https://github.com/zhangpeihao/LearningDocker/blob/master/manuscript/01-DownloadAndInstall.md)
-
+  > Windows中，如果遇到找不到命令的話，可以先重新開機後並下以下指令試試看，確認自己已經在Docker裡面
+  ```
+    boot2docker ssh
+  ```
+  > 接下來就照著下列步驟即可
+  
 2. 複製本計畫檔案於目錄下
   > git clone 可以直接複製專案
   ```
@@ -94,6 +99,7 @@ Web瀏覽，應用以下Open Source工具：
   cd twlandsat/
   ./docker-install.sh
   ```
+  *如果遇到要輸入帳號密碼的問題，請注意自己的網址有沒有輸入錯誤喔！*
 
 3. 啟動
   > *注意* ，這可能會耗盡你的記憶體和CPU、甚至硬碟空間，請先確認是否有足夠的硬體配置。

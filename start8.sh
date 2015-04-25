@@ -2,12 +2,16 @@
 
 RSYNC="rsync://twlandsat@static.jimmyhub.net"
 
-# how many times to process image
-if [ "$#" -ne 1 ]
-then
-  N=1
-else
-  N=$1
+if [ "$#" -ne 2 ]; then
+  echo -e "\e[1;31m[please add at least 2 argument]\e[0m eg:"
+  echo "  $0 <times> <your_name_without_space>"
+  echo "  $0 5 jimmy"
+  exit
+fi
+
+N=$1
+if [ -n "$2" ]; then
+  CREDIT=$2
 fi
  
 # this will limit imagemagick doesn't eat more than 4GB
@@ -23,12 +27,7 @@ do
   QUEUE=/tmp/queue
 
   # get lastest landsat filename to process
-  rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
-  NAME=`grep -v -x -f $QUEUE/completed $QUEUE/pending | head -n1`
-  tail -n +2 $QUEUE/pending > $TMP/pending && cp -f $TMP/pending $QUEUE/pending
-  echo "$NAME" >> $QUEUE/processing
-  rsync -rt $QUEUE/pending $RSYNC/twlandsat-queue/
-  rsync -rtv $QUEUE/processing $RSYNC/twlandsat-queue/
+  NAME=`curl --data "action=pending&type=LC8&name=${CREDIT}" http://static.jimmyhub.net/bin/queue.php`
 
   # 1. download landsat
   if [ ! -f ~/landsat/zip/${NAME}.tar.bz ]; then
@@ -89,20 +88,17 @@ do
     echo "Step 4. Uploading pan-sharped geotiff ..."
     rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 $RSYNC/twlandsat/processed/${NAME}/
     echo "Uploading tiles-rgb in ${NAME} at $(date)"
-    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb $RSYNC/twlandsat/processed/${NAME}/
+    rsync -rt --info=progress2 --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb $RSYNC/twlandsat/processed/${NAME}/
     echo "Uploading tiles-swirnir in ${NAME} at $(date)"
-    rsync -rt --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-swirnir $RSYNC/twlandsat/processed/${NAME}/
+    rsync -rt --info=progress2 --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-swirnir $RSYNC/twlandsat/processed/${NAME}/
 
     # update queue
     echo "Step 5. Writing completed log"
-    rsync -rt $RSYNC/twlandsat-queue/completed $QUEUE/
-    echo "$NAME" >> $QUEUE/completed
-    rsync -rtv $QUEUE/completed $RSYNC/twlandsat-queue/
+    curl --data "action=completed&type=LC8&name=${CREDIT}&landsat=${NAME}" http://static.jimmyhub.net/bin/queue.php
 
     # Clean uploaded file
     echo "Clean up tmp and uploaded files"
     rm -Rf ~/landsat/processed/${NAME}/
-    rm -f ~/landsat/zip/${NAME}.tar.bz
     rm -Rf ${TMP}
   fi
 done

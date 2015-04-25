@@ -13,8 +13,6 @@ fi
 N=$1
 if [ -n "$2" ]; then
   CREDIT=$2
-else
-  CREDIT=''
 fi
  
 # this will limit imagemagick doesn't eat more than 4GB
@@ -31,7 +29,7 @@ do
   QUEUE=/tmp/queue
 
   # get lastest landsat filename to process
-  NAME=`curl --data "action=pending&type=LT5&name=${CREDIT}" http://static.jimmyhub.net/bin/queue.ph`
+  NAME=`curl --data "action=pending&type=LT5&name=${CREDIT}" http://static.jimmyhub.net/bin/queue.php`
   LTVER=${NAME:0:3}
   if [ "$LTVER" != "LT5" ] && [ "$LTVER" != "LT4" ] ; then
     echo "Landsat version wrong";

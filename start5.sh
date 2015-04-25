@@ -29,23 +29,14 @@ do
   echo "Start process $i / $N"
   # get queue list
   QUEUE=/tmp/queue
-  TMP="/tmp"
 
   # get lastest landsat filename to process
-  rsync -rt $RSYNC/twlandsat-queue/ $QUEUE
-  cat $QUEUE/completed | awk '{print $1}' > $QUEUE/ctmp
-  grep -v -x -f $QUEUE/ctmp $QUEUE/pending > $TMP/pending
-  NAME=`cat $TMP/pending | head -n1`
+  NAME=`curl --data "action=pending&type=LT5&name=${CREDIT}" http://static.jimmyhub.net/bin/queue.ph`
   LTVER=${NAME:0:3}
   if [ "$LTVER" != "LT5" ] && [ "$LTVER" != "LT4" ] ; then
     echo "Landsat version wrong";
     exit 1;
   fi
-
-  tail -n +2 $TMP/pending > $TMP/pp && cp -f $TMP/pp $QUEUE/pending
-  echo "$NAME" >> $QUEUE/processing
-  rsync -rtv $QUEUE/pending $RSYNC/twlandsat-queue/
-  rsync -rtv $QUEUE/processing $RSYNC/twlandsat-queue/
 
   # 1. download landsat
   if [ ! -f ~/landsat/zip/${NAME}.tar.gz ]; then
@@ -90,9 +81,7 @@ do
 
     # update queue
     echo "Step 5. Writing completed log"
-    rsync -rt $RSYNC/twlandsat-queue/completed $QUEUE/
-    echo "$NAME $CREDIT" >> $QUEUE/completed
-    rsync -rtv $QUEUE/completed $RSYNC/twlandsat-queue/
+    curl --data "action=completed&type=LT5&name=${CREDIT}&landsat=${NAME}" http://static.jimmyhub.net/bin/queue.php
 
     # Clean uploaded file
     echo "Clean up tmp and uploaded files"

@@ -75,7 +75,7 @@ do
     echo "Step 4. Uploading pan-sharped geotiff ..."
     rsync -rtv --progress --ignore-existing --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/*.bz2 $RSYNC/twlandsat/processed/${NAME}/
     echo "Uploading tiles-rgb in ${NAME} at $(date)"
-    rsync -rt --info=progress --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb $RSYNC/twlandsat/processed/${NAME}/
+    rsync -rt --info=progress2 --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ~/landsat/processed/${NAME}/tiles-rgb $RSYNC/twlandsat/processed/${NAME}/
 
     # update queue
     echo "Step 5. Writing completed log"

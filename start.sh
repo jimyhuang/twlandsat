@@ -1,4 +1,5 @@
 #! /bin/bash
+cd /home/twlandsat && git pull
 
 if [ "$#" -ne 1 ]; then
   echo -e "\e[1;31m[please add at least 2 argument]\e[0m eg:"
@@ -17,15 +18,16 @@ WORKDIR=`pwd`
 NAME=$1
 TMP=/tmp/${NAME}
 FINAL=${TMP}/final
+mkdir -p $FINAL
 
 # 1. download landsat
 if [ ! -f $TMP/${NAME}.tar.bz ]; then
   echo "Step 1. Downloading ${NAME} ..."
   landsat download ${NAME}
+  mv ~/landsat/downloads/${NAME}.tar.bz ${TMP}/
 fi
 
 # 2. Processing image bands, pansharp
-mkdir -p $FINAL
 mkdir -p ~/landsat/processed/${NAME}
 if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
   echo "Step 2. Processing ${NAME} to RGB..."

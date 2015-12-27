@@ -19,9 +19,9 @@ fi
 if [ ! $STARTED ] && [ ! $STOPPED ]; then
   echo "Docker run ... "
   docker run \
-    --name twlandsat \
+    --rm --name twlandsat \
     -v $PWD/landsat:/root/landsat \
-    -i -t jimyhuang/twlandsat \
-    /bin/bash
+    -i -t jimyhuang/twlandsat $1
+#    --entrypoint /home/twlandsat/start.sh 
   exit
 fi

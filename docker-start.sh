@@ -17,6 +17,7 @@ if [ -n "$STOPPED" ]; then
   exit
 fi
 if [ ! $STARTED ] && [ ! $STOPPED ]; then
+  mkdir -p $PWD/landsat
   echo "Docker run ... "
   docker run \
     --rm --name twlandsat \

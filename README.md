@@ -46,6 +46,7 @@
 撰寫程式：
 > 眼尖的你，會發現計畫目標中的勾選框，並沒有全部完成。這當然是因為需要你一起加入 -- 
   - [加入開發者](https://github.com/jimyhuang/twlandsat/issues/1)
+  - [網頁開發](https://github.com/jimyhuang/twlandsat-browse)
 
 演算衛星圖：
 > 只要你有下列規格的電腦，優良的網路速度，即可一同協助我們演算過往30年的圖資

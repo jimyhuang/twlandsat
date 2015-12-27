@@ -20,7 +20,6 @@ if [ ! $STARTED ] && [ ! $STOPPED ]; then
   echo "Docker run ... "
   docker run \
     --name twlandsat \
-    -e "RSYNC_PASSWORD=1A5%QfFx%S8%" \
     -v $PWD/landsat:/root/landsat \
     -i -t jimyhuang/twlandsat \
     /bin/bash

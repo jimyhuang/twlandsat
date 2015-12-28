@@ -29,7 +29,7 @@ fi
 
 # 2. Processing image bands, pansharp
 mkdir -p ~/landsat/processed/${NAME}
-if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
+if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ] && [ ! -d ~/landsat/processed/${NAME}/tiles-rgb/ ]; then
   echo "Step 2. Processing ${NAME} to RGB..."
   if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then
     echo "Un-tar ${NAME}.tar.bz , need several minutes ... "
@@ -48,7 +48,7 @@ if [ ! -f ~/landsat/processed/${NAME}/final-rgb-pan.TIF.bz2 ]; then
 fi
 
 # 3. Generate SWIR-NIR false color 
-if [ ! -f ~/landsat/processed/${NAME}/final-swirnir-pan.TIF.bz2 ]; then
+if [ ! -f ~/landsat/processed/${NAME}/final-swirnir-pan.TIF.bz2 ] && [ ! -d ~/landsat/processed/${NAME}/tiles-swirnir/ ]; then
   # image process
   echo "Step 3. Processing ${NAME} to SWIR-NIR false color..."
   if [ ! -f ${TMP}/${NAME}_B8.TIF ]; then

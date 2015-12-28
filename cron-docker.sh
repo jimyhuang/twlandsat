@@ -15,6 +15,10 @@ WORKDIR=`dirname $REALPATH`
 if [ -f $QUEUE ]; then
   LANDSAT=`unshift $QUEUE`
   if [ -n "$LANDSAT" ]; then
+    if [ -f "/var/log/twlandsat.log" ]; then
+      DT=`date '+%Y-%m-%d %H:%M:%S'`
+      echo "$DT $LANDSAT" >> /var/log/twlandsat.log
+    fi
     cd $WORKDIR && ./docker-start.sh $LANDSAT 
   fi
 else

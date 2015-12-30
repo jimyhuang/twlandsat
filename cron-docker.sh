@@ -11,8 +11,9 @@ function unshift {
 QUEUE="$HOME/.landsat-queue"
 REALPATH=`realpath $0`
 WORKDIR=`dirname $REALPATH`
-
-if [ -f $QUEUE ]; then
+EXISTS=`docker ps -f name=twlandsat -q`
+if [ -f $QUEUE ] && [ -z "$EXISTS" ]; then
+  docker rm -f twlandsat
   LANDSAT=`unshift $QUEUE`
   if [ -n "$LANDSAT" ]; then
     if [ -f "/var/log/twlandsat.log" ]; then

@@ -15,7 +15,7 @@ EXISTS=`docker ps -f name=twlandsat -q`
 if [ -f $QUEUE ] && [ -z "$EXISTS" ]; then
   docker rm -f twlandsat
   LANDSAT=`unshift $QUEUE`
-  if [ -n "$LANDSAT" ]; then
+  if [ -n "$LANDSAT" ] && [ ! -d "$WORKDIR/landsat/procssed/$LANDSAT" ]; then
     if [ -f "/var/log/twlandsat.log" ]; then
       DT=`date '+%Y-%m-%d %H:%M:%S'`
       echo "$DT $LANDSAT" >> /var/log/twlandsat.log

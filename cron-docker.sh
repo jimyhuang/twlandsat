@@ -20,7 +20,11 @@ if [ -f $QUEUE ] && [ -z "$EXISTS" ]; then
       DT=`date '+%Y-%m-%d %H:%M:%S'`
       echo "$DT $LANDSAT" >> /var/log/twlandsat.log
     fi
-    cd $WORKDIR && ./docker-start.sh $LANDSAT 
+    cd $WORKDIR 
+    docker run \
+      --rm --name twlandsat \
+      -v $WORKDIR/landsat:/root/landsat \
+      -i -t jimyhuang/twlandsat $LANDSAT
   fi
 else
   echo "Local queue not exists."

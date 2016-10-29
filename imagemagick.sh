@@ -8,4 +8,4 @@ FROM=$2
 TO=$3
 
 cd ~/landsat/processed/${NAME}
-convert $1 $2
+convert $2 $3

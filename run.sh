@@ -31,6 +31,7 @@ if [ ! $1 ]; then
     echo -e "\e[33m$dt\e[0m File not found at $HOME/.landsat-queue, stop."
     exit 0
   else
+    NUM_QUEUE=`cat $QUEUE | wc -l`
     LAST=`unshift $QUEUE`
     if [ -n "$LAST" ] && [ ! -f "$OUTPUTDIR/processed/$LAST/rgb.jpg" ]; then
       LANDSAT=$LAST
@@ -49,8 +50,11 @@ echo "$LANDSAT" > $RUNNING
 touch $RUNNING
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[42m$dt Start process $LANDSAT\e[0m"
+if [ -n "$NUM_QUEUE" ]; then
+  echo -e "\e[34m$dt\e[0m $NUM_QUEUE scences left in queue."
+fi
 echo -e "\e[34m$dt\e[0m Download"
-docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat download $LANDSAT -b 2345
+docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat download $LANDSAT -b 2345 1> /dev/null
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Process rgb"

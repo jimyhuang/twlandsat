@@ -24,7 +24,7 @@ Just simplely execute script will process $HOME/.landsat-queue line by line
   ./run.sh
   ```
 
-Download and process specify landsat id, not queue
+Download and process specify landsat scence id, not queue
   ```
   ./run.sh LC81170442015336LGN00
   ```
@@ -37,7 +37,7 @@ Redirect processing log
 ### Queue File Sample
 
 What should I put in $HOME/.landsat-queue?
-Just like below:
+Per scence id per line like below:
 ```
 LC81180442015103LGN00
 LC81180452015103LGN00

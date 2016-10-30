@@ -20,19 +20,19 @@
 ### Run
 
 Just simplely execute script will process $HOME/.landsat-queue line by line
-  ```
-  ./run.sh
-  ```
+```
+./run.sh
+```
 
 Download and process specify landsat scence id, not queue
-  ```
-  ./run.sh LC81170442015336LGN00
-  ```
+```
+./run.sh LC81170442015336LGN00
+```
 
 Redirect processing log
-  ```
-  ./run.sh 2> /var/log/twlandsat.log
-  ```
+```
+./run.sh 2> /var/log/twlandsat.log
+```
 
 ### Queue File Sample
 

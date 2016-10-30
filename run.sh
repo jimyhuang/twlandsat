@@ -11,14 +11,13 @@ function unshift {
   FILE=$1
   FIRST=`head -1 $FILE`
   tail -n +2 "$FILE" > $HOME/.landsat-queue.swp
-  cp $HOME/.landsat-queue.swp $FILE
   echo $FIRST
 }
 
 # check if running in 60 mins
 RUNNING=`find $RUNNING -mmin -60`
 if [ -n "$RUNNING" ]; then
-  $RUN=`cat $RUNNING`
+  RUN=`cat $RUNNING`
   if [ -n "$RUN" ]; then
     echo -e "\e[33m$dt\e[0m Already processing $RUN"
     exit 0
@@ -33,8 +32,7 @@ if [ ! $1 ]; then
     exit 0
   else
     LAST=`unshift $QUEUE`
-    echo $LAST;
-    if [ -n "$LAST" ] && [ ! -f "$OUTPUTDIR/procssed/$LAST/rgb.jpg" ]; then
+    if [ -n "$LAST" ] && [ ! -f "$OUTPUTDIR/processed/$LAST/rgb.jpg" ]; then
       LANDSAT=$LAST
     fi
   fi
@@ -56,11 +54,15 @@ docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:lat
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Process rgb"
-docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT
+if [ ! -f $OUTPUTDIR/processed/${LANDSAT}_bands_432.TIF ]; then
+  docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT
+fi
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Process NDVI"
-docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT --ndvi
+if [ ! -f $OUTPUTDIR/processed/${LANDSAT}_NDVI.TIF ]; then
+  docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT --ndvi
+fi
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Generate tiles"
@@ -69,12 +71,13 @@ docker run --rm --entrypoint /home/twlandsat/scripts/gdal2tiles.sh -v $OUTPUTDIR
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Generate preview"
-docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_NDVI.TIF -scale 25% ndvi.jpg
-docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_bands_432.TIF -scale 25% rgb.jpg
+docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_NDVI.TIF ndvi.jpg
+docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_bands_432.TIF rgb.jpg
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Final clear"
 echo "" > $RUNNING
+cp -f $HOME/.landsat-queue.swp $QUEUE
 if [ -d "$OUTPUTDIR/downloads/$LANDSAT" ]; then
   rm -Rf "$OUTPUTDIR/downloads/$LANDSAT"
 fi

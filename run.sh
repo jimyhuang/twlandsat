@@ -15,8 +15,8 @@ function unshift {
 }
 
 # check if running in 60 mins
-RUNNING=`find $RUNNING -mmin -60`
-if [ -n "$RUNNING" ]; then
+ISRUN=`find $RUNNING -mmin -60`
+if [ -n "$ISRUN" ]; then
   RUN=`cat $RUNNING`
   if [ -n "$RUN" ]; then
     echo -e "\e[33m$dt\e[0m Already processing $RUN"
@@ -43,10 +43,10 @@ fi
 if [ -z "$LANDSAT" ]; then
   echo -e "\e[31m$dt\e[0m Cannot find any landsat id in queue or argument"
   exit 1
-else
-  echo "$LANDSAT" > $RUNNING
 fi
 
+echo "$LANDSAT" > $RUNNING
+touch $RUNNING
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[42m$dt Start process $LANDSAT\e[0m"
 echo -e "\e[34m$dt\e[0m Download"

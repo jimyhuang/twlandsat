@@ -55,7 +55,7 @@ if [ -n "$NUM_QUEUE" ]; then
 fi
 echo -e "\e[34m$dt\e[0m Download"
 if [ ! -f $OUTPUTDIR/downloads/${LANDSAT}/${LANDSAT}_B5.TIF ]; then
-  docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat download $LANDSAT -b 2345 1> /dev/null
+  docker run --rm -it -v $OUTPUTDIR:/root/landsat jimyhuang/landsat-util:latest landsat download $LANDSAT -b 2345 1> /dev/null
   if [ -f $OUTPUTDIR/downloads/${LANDSAT}.tar.bz ]; then
     mkdir $OUTPUTDIR/downloads/${LANDSAT}
     tar -xf $OUTPUTDIR/downloads/${LANDSAT}.tar.bz -C $OUTPUTDIR/downloads/${LANDSAT}
@@ -66,13 +66,13 @@ fi
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Process rgb"
 if [ ! -f $OUTPUTDIR/processed/${LANDSAT}/${LANDSAT}_bands_432.TIF ]; then
-  docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT
+  docker run --rm -it -v $OUTPUTDIR:/root/landsat jimyhuang/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT
 fi
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Process NDVI"
 if [ ! -f $OUTPUTDIR/processed/${LANDSAT}/${LANDSAT}_NDVI.TIF ]; then
-  docker run --rm -it -v $OUTPUTDIR:/root/landsat developmentseed/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT --ndvi
+  docker run --rm -it -v $OUTPUTDIR:/root/landsat jimyhuang/landsat-util:latest landsat process /root/landsat/downloads/$LANDSAT --ndvi
 fi
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`

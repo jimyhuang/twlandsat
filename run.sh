@@ -32,7 +32,7 @@ if [ ! $1 ]; then
     exit 0
   else
     LAST=`unshift $QUEUE`
-    if [ -n "$LAST" ] && [ ! -f "$OUTPUTDIR/processed/$LAST/rgb.png" ]; then
+    if [ -n "$LAST" ]; then
       LANDSAT=$LAST
     fi
   fi

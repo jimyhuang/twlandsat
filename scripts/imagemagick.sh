@@ -6,6 +6,11 @@
 NAME=$1
 FROM=$2
 TO=$3
+if [ -n "$4" ]; then
+  SIZE=$4
+else
+  SIZE=600
+fi
 
 cd ~/landsat/processed/${NAME}
-convert $2 -scale 600 -fuzz 5% -transparent black $3
+convert $FROM -scale $SIZE -fuzz 5% -transparent black $TO

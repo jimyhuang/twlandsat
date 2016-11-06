@@ -82,8 +82,10 @@ docker run --rm --entrypoint /home/twlandsat/scripts/gdal2tiles.sh -v $OUTPUTDIR
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Generate preview"
-docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_NDVI.TIF ndvi.png
-docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_bands_432.TIF rgb.png
+cd $OUTPUTDIR/$LANDSAT && convert ${LANDSAT}_NDVI.TIF -scale 600 -fuzz 5% -transparent black ndvi.png
+cd $OUTPUTDIR/$LANDSAT && convert ${LANDSAT}_NDVI.TIF -scale 1920 ndvi.jpg
+cd $OUTPUTDIR/$LANDSAT && convert ${LANDSAT}_bands_432.TIF -scale 600 -fuzz 5% -transparent black rgb.png
+cd $OUTPUTDIR/$LANDSAT && convert ${LANDSAT}_bands_432.TIF -scale 1920 rgb.png
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Final clear"

@@ -32,7 +32,7 @@ if [ ! $1 ]; then
     exit 0
   else
     LAST=`unshift $QUEUE`
-    if [ -n "$LAST" ] && [ ! -f "$OUTPUTDIR/processed/$LAST/rgb.jpg" ]; then
+    if [ -n "$LAST" ] && [ ! -f "$OUTPUTDIR/processed/$LAST/rgb.png" ]; then
       LANDSAT=$LAST
     fi
   fi
@@ -71,8 +71,8 @@ docker run --rm --entrypoint /home/twlandsat/scripts/gdal2tiles.sh -v $OUTPUTDIR
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Generate preview"
-docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_NDVI.TIF ndvi.jpg
-docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_bands_432.TIF rgb.jpg
+docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_NDVI.TIF ndvi.png
+docker run --rm --entrypoint /home/twlandsat/scripts/imagemagick.sh -v $OUTPUTDIR:/root/landsat jimyhuang/twlandsat $LANDSAT ${LANDSAT}_bands_432.TIF rgb.png
 
 dt=`date '+%Y-%m-%d %H:%M:%S'`
 echo -e "\e[34m$dt\e[0m Final clear"
